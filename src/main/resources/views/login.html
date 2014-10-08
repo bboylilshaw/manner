@@ -8,52 +8,49 @@
     <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
 </head>
 <body>
-    <!--begin container-->
-    <div class="large-centered">
-        <div class="col-sm-4 col-sm-offset-4">
-            <div id="loginPanel" class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please Login</h3>
+    <div class="row">
+        <div class="medium-4 medium-offset-4 columns panel">
+            <h3>Please Login</h3>
+            <form th:action="@{/login}" method="post" role="form">
+                <div th:if="${param.error}" data-alert="" class="alert-box alert">
+                    Invalid username and password.
+                    <a href="#" class="close">&times;</a>
                 </div>
-                <div class="panel-body">
-                    <form th:action="@{/login}" method="post" role="form">
-                        <div th:if="${param.error}" data-alert="" class="alert-box alert">
-                            Invalid username and password.
-                            <a href="#" class="close">&times;</a>
-                        </div>
-                        <div th:if="${param.logout}" data-alert="" class="alert-box success">
-                            You have been logged out.
-                            <a href="#" class="close">&times;</a>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input type="text" name="username" class="form-control" placeholder="Username" required="true"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password" name="password" class="form-control" placeholder="Password" required="true"/>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="checkbox" for="remember-me-checkbox">
-                                <input type="checkbox" id="remember-me-checkbox" name="_spring_security_remember_me" data-toggle="checkbox"/>Remember Me
-                                <a href="#" class="pull-right">Forgot Password?</a>
-                            </label>
-                        </div>
-                        <input type="submit" value="Login" class="btn btn-primary btn-block"/>
-                    </form>
+                <div th:if="${param.logout}" data-alert="" class="alert-box success">
+                    You have been logged out.
+                    <a href="#" class="close">&times;</a>
                 </div>
-                <div class="panel-footer text-center">
-                    <a href="#">Don't have an account? Register</a>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="username">
+                            <input type="text" name="username" id="username" placeholder="Username or Email" required="true"/>
+                        </label>
+                    </div>
                 </div>
-            </div><!-- end loginPanel-->
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="password">
+                            <input type="password" name="password" id="password" placeholder="Password" required="true"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <input id="remember-me-checkbox" name="_spring_security_remember_me" type="checkbox"/><label for="remember-me-checkbox">Remember Me</label>
+                        <a href="#" class="right">Forgot Password?</a>
+                    </div>
+                </div>
+                <input type="submit" value="Login" class="button expand"/>
+            </form>
+            <div class="text-center">
+                <a href="#">Don't have an account? Register</a>
+            </div>
         </div>
-    </div><!-- end container -->
+    </div><!-- end row -->
 <script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script>$(document).foundation();</script>
+<script>
+    $(document).foundation();
+</script>
 </body>
 </html>

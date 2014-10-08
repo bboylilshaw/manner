@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@Transactional
+//@Transactional
 public class UserRepositoryTest {
 
     @Autowired
