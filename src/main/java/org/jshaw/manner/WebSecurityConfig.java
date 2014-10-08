@@ -1,0 +1,66 @@
+package org.jshaw.manner;
+
+import org.jshaw.manner.security.UserRepositoryUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String KEY = "manner";
+
+    @Autowired
+    private UserRepositoryUserDetailsService userDetailsService;
+
+    @Bean
+    public BCryptPasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public TokenBasedRememberMeServices rememberMeServices() {
+        return new TokenBasedRememberMeServices(KEY, userDetailsService);
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .headers().disable()
+            .authorizeRequests()
+                .antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/error", "/signup", "/api/**").permitAll() //FIXME: add authentication for restful web service api call
+                .antMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login").permitAll()
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .loginProcessingUrl("/login")
+                .failureUrl("/login?error")
+                .defaultSuccessUrl("/")
+                .and()
+            .logout()
+                .logoutUrl("/logout").permitAll()
+                .logoutSuccessUrl("/login?logout")
+                .deleteCookies("JSESSIONID")
+                .and()
+            .rememberMe()
+                .rememberMeServices(rememberMeServices())
+                .key(KEY);
+    }
+
+}
