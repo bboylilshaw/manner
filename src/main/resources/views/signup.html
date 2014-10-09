@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{signup}">Sign Up</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
+    <link href="../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
+    <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="medium-6 medium-offset-3 columns panel">
+            <h3>Please Sign up</h3>
+            <form th:action="@{/signup}" data-abide="" method="post" role="form">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="username"> Username:
+                            <input type="text" name="username" id="username" placeholder="Username" required="true"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <label for="firstName"> First Name:
+                            <input type="text" name="firstName" id="firstName" placeholder="First Name" required="true"/>
+                        </label>
+                    </div>
+                    <div class="medium-6 columns">
+                        <label for="lastName"> Last Name:
+                            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required="true"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="email"> Email:
+                            <input type="email" name="email" id="email" placeholder="Email" required="true"/>
+                        </label>
+                        <small class="error">Invalid email address</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="password"> Password:
+                            <input type="password" name="password" id="password" placeholder="Password" required="true"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="confirmPassword"> Confirm Password:
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" data-equalto="password" required="true"/>
+                        </label>
+                        <small class="error">The password did not match</small>
+                    </div>
+                </div>
+                <input type="submit" value="Sign Up" class="button expand"/>
+            </form>
+        </div>
+    </div><!-- end row -->
+<script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
+<script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>
