@@ -4,3 +4,12 @@ body {
     font-size: 14px;
     font-family: Helvetica, Arial, sans-serif;
 }
+
+.footer {
+    background-color: #777777;
+}
+
+.fixed {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+}

@@ -1,4 +1,4 @@
-package org.jshaw.manner.repository;
+package org.jshaw.manner.service;
 
 import org.jshaw.manner.Application;
 import org.jshaw.manner.domain.Role;
@@ -7,32 +7,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-//@Transactional
-public class UserRepositoryTest {
+public class UserServiceImplTest {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
+    UserService userService;
 
     @Test
     public void testSave() throws Exception {
-        userRepository.save(User.of("bboylilshaw","Yao","Xiao", "bboylilshaw@gmail.com", encoder.encode("123"), Role.ADMIN));
+        userService.save(User.of("1","2","3","123@123.com","123", Role.ADMIN));
     }
-
-    @Test
-    public void testDelete() throws Exception {
-        userRepository.delete(1L);
-    }
-
-    @Test
-    public void testFindByUsername() throws Exception {
-    }
-
 }

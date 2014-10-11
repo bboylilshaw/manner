@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{signup}">Sign Up</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -8,7 +8,9 @@
     <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
 </head>
 <body>
-    <div class="row">
+    <header th:replace="layout/header :: top-bar"></header>
+    <div th:text="${#authentication}"></div>
+    <div id="signup" class="row">
         <div class="medium-6 medium-offset-3 columns panel">
             <h3>Please Sign up</h3>
             <form th:action="@{/signup}" data-abide="" method="post" role="form">
@@ -57,7 +59,8 @@
                 <input type="submit" value="Sign Up" class="button expand"/>
             </form>
         </div>
-    </div><!-- end row -->
+    </div><!-- end signup -->
+    <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script>

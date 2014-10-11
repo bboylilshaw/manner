@@ -1,6 +1,5 @@
 package org.jshaw.manner;
 
-import org.jshaw.manner.security.UserRepositoryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +7,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 @Configuration
@@ -18,10 +19,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String KEY = "manner";
 
     @Autowired
-    private UserRepositoryUserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Bean
-    public BCryptPasswordEncoder encoder() {
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -43,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/error", "/signup", "/api/**").permitAll() //FIXME: add authentication for restful web service api call
                 .antMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().fullyAuthenticated()
                 .and()
             .formLogin()
                 .loginPage("/login").permitAll()
@@ -51,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
-                .defaultSuccessUrl("/")
+                //.defaultSuccessUrl("/")
                 .and()
             .logout()
                 .logoutUrl("/logout").permitAll()
