@@ -8,16 +8,17 @@
     <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
 </head>
 <body>
+    <header th:replace="layout/header :: top-bar"></header>
     <div class="row">
         <div class="medium-4 medium-offset-4 columns panel">
             <h3>Please Login</h3>
-            <form th:action="@{/login}" method="post" role="form">
+            <form th:action="@{/signin}" method="post" role="form">
                 <div th:if="${param.error}" data-alert="" class="alert-box alert">
-                    Invalid username and password.
+                    Invalid username or password.
                     <a href="#" class="close">&times;</a>
                 </div>
-                <div th:if="${param.logout}" data-alert="" class="alert-box success">
-                    You have been logged out.
+                <div th:if="${param.signout}" data-alert="" class="alert-box success">
+                    You have been signed out.
                     <a href="#" class="close">&times;</a>
                 </div>
                 <div class="row">
@@ -40,13 +41,14 @@
                         <a href="#" class="right">Forgot Password?</a>
                     </div>
                 </div>
-                <input type="submit" value="Login" class="button expand"/>
+                <input type="submit" value="Sign In" class="button expand"/>
             </form>
             <div class="text-center">
                 <a href="#" th:href="@{/signup}">Don't have an account? Register</a>
             </div>
         </div>
     </div><!-- end row -->
+    <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script>

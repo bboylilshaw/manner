@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{error}">Error</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
     <link href="../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
-    <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
 </head>
 <body>
 
-    <h2 th:text="|${status} - ${error}|">Message</h2>
-    <h2 th:text="${message}">Message</h2>
+    <div th:text="|${status} - ${error}|">Message</div>
+    <div th:text="${message}">Message</div>
 
-<script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
-<script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script>
-    $(document).foundation();
-</script>
 </body>
 </html>
