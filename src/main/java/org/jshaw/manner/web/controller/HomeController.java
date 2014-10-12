@@ -1,6 +1,6 @@
 package org.jshaw.manner.web.controller;
 
-import org.jshaw.manner.domain.Role;
+import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.security.UserRepositoryUserDetailsService;
 import org.jshaw.manner.service.UserService;

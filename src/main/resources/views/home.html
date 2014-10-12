@@ -10,14 +10,7 @@
 <body>
     <header th:replace="layout/header :: top-bar">Top-bar</header>
     <div class="row">
-        <div class="medium-2 columns">
-            <ul class="side-nav">
-                <li><a href="#">Link 1</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-                <li><a href="#">Link 4</a></li>
-            </ul>
-        </div>
+        <div id="side-bar" class="medium-2 columns" th:include="layout/side-bar :: side-bar"></div>
         <div id="content" class="medium-10 columns">
             <h1>hello jason shaw</h1>
             <h2>hello jason shaw</h2>
@@ -28,6 +21,7 @@
             <p>hello jason shaw</p>
         </div>
     </div>
+    <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script>

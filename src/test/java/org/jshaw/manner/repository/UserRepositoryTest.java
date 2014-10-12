@@ -1,19 +1,15 @@
 package org.jshaw.manner.repository;
 
-import org.jshaw.manner.Application;
-import org.jshaw.manner.domain.Role;
+import org.jshaw.manner.AbstractIntegrationTest;
+import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.User;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-//@Transactional
-public class UserRepositoryTest {
+import java.util.HashSet;
+
+public class UserRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     UserRepository userRepository;
@@ -23,7 +19,18 @@ public class UserRepositoryTest {
 
     @Test
     public void testSave() throws Exception {
-        userRepository.save(User.of("bboylilshaw","Yao","Xiao", "bboylilshaw@gmail.com", encoder.encode("123"), Role.ADMIN));
+        userRepository.save(User.of("bboylilshaw","Yao","Xiao", "bboylilshaw@gmail.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
+    }
+
+    @Test
+    public void testAddGroup() throws Exception {
+//        User user = userRepository.findOne(1L);
+//        Group group = Group.of("BMI", new Date(), user.getId().toString(), null);
+//        ArrayList<Group> groupList = new ArrayList<>();
+//        groupList.add(group);
+//        user.setGroup(groupList);
+//        user.setFirstName("Test");
+//        userRepository.save(user);
     }
 
     @Test

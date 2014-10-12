@@ -1,6 +1,6 @@
 package org.jshaw.manner.security;
 
-import org.jshaw.manner.domain.Role;
+import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

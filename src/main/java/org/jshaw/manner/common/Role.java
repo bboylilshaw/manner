@@ -1,4 +1,4 @@
-package org.jshaw.manner.domain;
+package org.jshaw.manner.common;
 
 public enum Role {
     SUPER_ADMIN,
