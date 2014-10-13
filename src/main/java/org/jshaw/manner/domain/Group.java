@@ -1,9 +1,9 @@
 package org.jshaw.manner.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
@@ -13,8 +13,8 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "t_group")
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
 public class Group extends AbstractPersistable<Long> {
@@ -24,8 +24,9 @@ public class Group extends AbstractPersistable<Long> {
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")
     @ManyToMany(
-            targetEntity = User.class,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+            targetEntity = User.class
+//            fetch = FetchType.EAGER
+//            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
     @JoinTable(
             name = "t_group_user",
@@ -33,4 +34,13 @@ public class Group extends AbstractPersistable<Long> {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Collection<User> users = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "name='" + name + '\'' +
+                ", createdDate=" + createdDate +
+                ", createdBy='" + createdBy + '\'' +
+                '}';
+    }
 }

@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addGroup(User user, Group group) {
-        user.getGroups().add(group);
+        //user.getGroups().add(group);
         group.getUsers().add(user);
         //userRepository.save(user);
         groupRepository.save(group);

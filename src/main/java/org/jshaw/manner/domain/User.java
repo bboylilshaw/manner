@@ -1,9 +1,9 @@
 package org.jshaw.manner.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jshaw.manner.common.Role;
@@ -18,8 +18,8 @@ import java.util.HashSet;
 @Table(name = "t_user",
         indexes = @Index(name = "username_index", columnList = "username", unique = true),
         uniqueConstraints = @UniqueConstraint(name = "email_uni", columnNames = "email"))
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
 public class User extends AbstractPersistable<Long> {
@@ -40,10 +40,22 @@ public class User extends AbstractPersistable<Long> {
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @ManyToMany(
-            mappedBy = "users",
             targetEntity = Group.class,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+            mappedBy = "users"
+//            fetch = FetchType.EAGER
+//            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
     private Collection<Group> groups = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }
