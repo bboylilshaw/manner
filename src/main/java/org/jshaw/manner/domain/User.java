@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -47,6 +48,9 @@ public class User extends AbstractPersistable<Long> {
     )
 //    @OneToMany(mappedBy = "user")
     private Collection<Group> groups = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private Collection<Item> items = new ArrayList<>();
 
     @Override
     public String toString() {

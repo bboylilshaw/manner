@@ -6,8 +6,8 @@ import org.jshaw.manner.domain.User;
 import java.util.Collection;
 
 public interface UserService {
-    User save(User user);
-    void createGroup(User user, Group group);
+    User add(User user);
+    Group createGroup(User user, Group group);
     Collection<Group> listGroups(Long userId);
     Collection<User> listUsersInGroup(Long groupId);
 }

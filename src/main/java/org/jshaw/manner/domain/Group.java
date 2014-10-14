@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,7 +37,9 @@ public class Group extends AbstractPersistable<Long> {
     )
 //    @OneToMany(mappedBy = "group")
     private Collection<User> users = new HashSet<>();
-//    private User user;
+
+    @OneToMany(mappedBy = "group", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private Collection<Item> items = new ArrayList<>();
 
     @Override
     public String toString() {

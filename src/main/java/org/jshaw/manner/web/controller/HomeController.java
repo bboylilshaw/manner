@@ -62,7 +62,7 @@ public class HomeController {
         user.setPassword(encoder.encode(rawPassword));
         logger.info(user.toString());
 
-        userService.save(user);
+        userService.add(user);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
