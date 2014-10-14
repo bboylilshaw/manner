@@ -1,7 +1,6 @@
 package org.jshaw.manner.repository;
 
 import org.jshaw.manner.AbstractIntegrationTest;
-import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserRepositoryTest extends AbstractIntegrationTest {
@@ -23,10 +21,10 @@ public class UserRepositoryTest extends AbstractIntegrationTest {
     public void testSave() throws Exception {
 
         List<User> users = new ArrayList<>();
-        users.add(User.of("aaa","aaa","aaa","a@a.com","aaa", Role.ADMIN, new HashSet<>()));
-        users.add(User.of("bbb","bbb","bbb","b@b.com","bbb", Role.ADMIN, new HashSet<>()));
-        users.add(User.of("ccc","ccc","ccc","c@c.com","ccc", Role.ADMIN, new HashSet<>()));
-        users.add(User.of("ddd","ddd","ddd","d@d.com","ddd", Role.ADMIN, new HashSet<>()));
+//        users.add(User.of("aaa","aaa","aaa","a@a.com","aaa", Role.ADMIN, new HashSet<>()));
+//        users.add(User.of("bbb","bbb","bbb","b@b.com","bbb", Role.ADMIN, new HashSet<>()));
+//        users.add(User.of("ccc","ccc","ccc","c@c.com","ccc", Role.ADMIN, new HashSet<>()));
+//        users.add(User.of("ddd","ddd","ddd","d@d.com","ddd", Role.ADMIN, new HashSet<>()));
         userRepository.save(users);
 //        userRepository.save(User.of("jason", "Yao", "Xiao", "jason@jason.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
     }

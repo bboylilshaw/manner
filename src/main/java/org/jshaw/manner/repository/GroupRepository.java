@@ -1,7 +1,7 @@
 package org.jshaw.manner.repository;
 
 import org.jshaw.manner.domain.Group;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GroupRepository extends CrudRepository<Group, Long> {
+public interface GroupRepository extends JpaRepository<Group, Long> {
 }

@@ -41,10 +41,11 @@ public class User extends AbstractPersistable<Long> {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @ManyToMany(
             targetEntity = Group.class,
-            mappedBy = "users"
-//            fetch = FetchType.EAGER
+            mappedBy = "users",
+            fetch = FetchType.EAGER
 //            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
+//    @OneToMany(mappedBy = "user")
     private Collection<Group> groups = new HashSet<>();
 
     @Override

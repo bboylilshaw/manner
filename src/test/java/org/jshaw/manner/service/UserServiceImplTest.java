@@ -23,7 +23,17 @@ public class UserServiceImplTest extends AbstractIntegrationTest {
     @Test
     public void testAddGroup() throws Exception {
         User user = userService.save(User.of("jason", "Yao", "Xiao", "jason@jason.com", "123", Role.ADMIN, new HashSet<>()));
-        Group group = Group.of("BMI", new Date(), "jason", new HashSet<>());
-        userService.addGroup(user,group);
+        Group group = Group.of("BMI", new Date(), user, new HashSet<>());
+        userService.createGroup(user, group);
+    }
+
+    @Test
+    public void testListGroups() throws Exception {
+        userService.listGroups(1L).forEach(System.out::println);
+    }
+
+    @Test
+    public void testListUsersInGroup() throws Exception {
+        userService.listUsersInGroup(1L).forEach(System.out::println);
     }
 }

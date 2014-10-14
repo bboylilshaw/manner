@@ -20,12 +20,13 @@ import java.util.HashSet;
 public class Group extends AbstractPersistable<Long> {
     private String name;
     private Date createdDate;
-    private String createdBy;
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User createdBy;
+
     @ManyToMany(
-            targetEntity = User.class
-//            fetch = FetchType.EAGER
+            targetEntity = User.class,
+            fetch = FetchType.LAZY
 //            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
     @JoinTable(
@@ -33,7 +34,9 @@ public class Group extends AbstractPersistable<Long> {
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+//    @OneToMany(mappedBy = "group")
     private Collection<User> users = new HashSet<>();
+//    private User user;
 
     @Override
     public String toString() {

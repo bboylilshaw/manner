@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -20,18 +22,33 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder encoder;
 
-    @Transactional(propagation = Propagation.REQUIRED)
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public User save(User user) {
         //user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public void addGroup(User user, Group group) {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void createGroup(User user, Group group) {
         //user.getGroups().add(group);
-        group.getUsers().add(user);
         //userRepository.save(user);
+        group.setCreatedBy(user);
+        group.getUsers().add(user);
         groupRepository.save(group);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Collection<Group> listGroups(Long userId) {
+        return userRepository.findOne(userId).getGroups();
+    }
+
+    @Override
+    public Collection<User> listUsersInGroup(Long groupId) {
+        Collection<User> users = groupRepository.findOne(groupId).getUsers();
+        users.forEach(System.out::println);
+        return users;
     }
 }
