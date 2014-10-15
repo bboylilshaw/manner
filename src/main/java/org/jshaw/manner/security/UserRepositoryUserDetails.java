@@ -29,6 +29,16 @@ public class UserRepositoryUserDetails extends User implements UserDetails {
     }
 
     @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    protected void setId(Long id) {
+        super.setId(id);
+    }
+
+    @Override
     public String getUsername() {
         return super.getUsername();
     }

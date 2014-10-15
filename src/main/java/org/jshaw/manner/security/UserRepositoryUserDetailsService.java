@@ -28,6 +28,7 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
         }
         UserRepositoryUserDetails userDetails = new UserRepositoryUserDetails();
         BeanUtils.copyProperties(user, userDetails);
+        userDetails.setId(user.getId());
         return userDetails;
     }
 

@@ -1,8 +1,10 @@
 package org.jshaw.manner.service;
 
 import org.jshaw.manner.domain.Group;
+import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.repository.GroupRepository;
+import org.jshaw.manner.repository.ItemRepository;
 import org.jshaw.manner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private ItemRepository itemRepository;
     @Autowired
     private PasswordEncoder encoder;
 
@@ -49,5 +54,19 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public Collection<User> listUsersInGroup(Long groupId) {
         return groupRepository.findOne(groupId).getUsers();
+    }
+
+    @Override
+    public List<Item> listGroupItems(Long groupId) {
+        Group group = groupRepository.findOne(groupId);
+        return itemRepository.findByGroup(group);
+    }
+
+    @Override
+    public Item createItem(Item item, Group group, User user) {
+        item.setGroup(group);
+        item.setCreatedBy(user);
+        item.setOwner(user);
+        return itemRepository.save(item);
     }
 }

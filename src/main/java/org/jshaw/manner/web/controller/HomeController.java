@@ -1,6 +1,7 @@
 package org.jshaw.manner.web.controller;
 
 import org.jshaw.manner.common.Role;
+import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.security.UserRepositoryUserDetailsService;
 import org.jshaw.manner.service.UserService;
@@ -12,11 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.Collection;
 
 @Controller
 public class HomeController {
@@ -35,7 +38,10 @@ public class HomeController {
     private UserRepositoryUserDetailsService userDetailsService;
 
     @RequestMapping("/")
-    public String home() {
+    public String home(ModelMap modelMap) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<Group> groups = userService.listGroups(user.getId());
+        modelMap.addAttribute("groups", groups);
         return HOME_PAGE;
     }
 

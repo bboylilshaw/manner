@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{app.name}">Team Manner</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
+    <link href="../../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
+    <script src="../../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
+</head>
+<body>
+    <header th:replace="layout/header :: top-bar">Top-bar</header>
+    <div class="row">
+        <div id="content" class="medium-10 columns">
+            <form th:action="@{/item}" method="post" role="form">
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <label for="itemContent">
+                            Content:
+                            <input type="text" name="itemContent" id="itemContent" required="true"/>
+                        </label>
+                    </div>
+                </div>
+                <input type="submit" value="Create" class="button"/>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="layout/footer :: footer">Footer</footer>
+<script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
+<script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>
