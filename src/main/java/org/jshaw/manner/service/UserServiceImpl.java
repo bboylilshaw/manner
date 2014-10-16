@@ -63,10 +63,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Item createItem(Item item, Group group, User user) {
+    public Item createItem(Long groupId, Item item) {
+        Group group = groupRepository.findOne(groupId);
         item.setGroup(group);
-        item.setCreatedBy(user);
-        item.setOwner(user);
         return itemRepository.save(item);
     }
 }

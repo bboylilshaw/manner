@@ -11,7 +11,7 @@
     <header th:replace="layout/header :: top-bar">Top-bar</header>
     <div class="row">
         <div id="content" class="medium-10 columns">
-            <form th:action="@{/item}" method="post" role="form">
+            <form th:action="@{'/group/' + ${groupId} + '/item'}" method="post" role="form">
                 <div class="row">
                     <div class="medium-6 columns">
                         <label for="itemContent">

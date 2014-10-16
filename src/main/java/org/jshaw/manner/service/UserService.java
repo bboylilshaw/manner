@@ -14,5 +14,5 @@ public interface UserService {
     Collection<User> listUsersInGroup(Long groupId);
     List<Item> listGroupItems(Long groupId);
 //    List<Item> listMyItems(Long groupId);
-    Item createItem(Item item, Group group, User user);
+    Item createItem(Long groupId, Item item);
 }

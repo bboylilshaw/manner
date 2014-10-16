@@ -1,5 +1,6 @@
 package org.jshaw.manner.web.controller;
 
+import org.jshaw.manner.common.Status;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
@@ -54,17 +55,23 @@ public class UserController {
 
         List<Item> items = userService.listGroupItems(groupId);
         modelMap.addAttribute("items", items);
+        modelMap.addAttribute("groupId", groupId);
         return "user/list-items";
     }
 
-    @RequestMapping(value = "/item", method = RequestMethod.GET)
-    public String createItem() {
-
+    @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.GET)
+    public String createItem(@PathVariable("groupId") Long groupId, ModelMap modelMap) {
+        modelMap.addAttribute("groupId", groupId);
         return "user/add-item";
     }
 
-    @RequestMapping(value = "/item", method = RequestMethod.POST)
-    public String doCreateItem(HttpServletRequest request) {
-        return "redirect:/";
+    @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.POST)
+    public String doCreateItem(@PathVariable("groupId") Long groupId, HttpServletRequest request) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String content = request.getParameter("itemContent");
+        Item item = Item.of(content, currentUser, currentUser, null, Status.NEW, 0);
+        userService.createItem(groupId, item);
+
+        return "redirect:/group/" + groupId + "/items";
     }
 }
