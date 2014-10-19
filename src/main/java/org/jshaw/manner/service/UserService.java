@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface UserService {
+    void signup(User user);
     User add(User user);
     Group createGroup(User user, Group group);
     Collection<Group> listGroups(Long userId);

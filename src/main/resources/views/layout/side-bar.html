@@ -16,7 +16,7 @@
         <li th:if="${groups.size()>0}" th:each="group : ${groups}"><a href="#" th:text="${group.name}" th:href="@{'/group/' + ${group.id} + '/items'}">Group Name</a></li>
     </ul>
     <div id="add-group-form" class="reveal-modal small" data-reveal="">
-        <h3>Please enter the group name:</h3>
+        <h3>group name:</h3>
         <form th:action="@{/group}" method="post" role="form">
             <label for="groupName">
                 <input type="text" name="groupName" id="groupName" required="true"/>

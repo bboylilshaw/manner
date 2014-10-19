@@ -4,11 +4,12 @@ import org.jshaw.manner.common.Status;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
+import org.jshaw.manner.security.CurrentUser;
 import org.jshaw.manner.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,8 +32,8 @@ public class UserController {
     private UserService userService;
 
     @ModelAttribute("groups")
-    private Collection<Group> groups() {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private Collection<Group> groups(@CurrentUser Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
         return userService.listGroups(currentUser.getId());
     }
 
@@ -42,9 +43,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public String doCreateGroup(HttpServletRequest request) {
+    public String doCreateGroup(HttpServletRequest request, @CurrentUser Authentication authentication) {
         String groupName = request.getParameter("groupName");
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = (User) authentication.getPrincipal();
         Group group = Group.of(groupName, new Date(), currentUser, new HashSet<>());
         userService.createGroup(currentUser, group);
         return "redirect:/";
@@ -52,7 +53,6 @@ public class UserController {
 
     @RequestMapping(value = "/group/{groupId}/items", method = RequestMethod.GET)
     public String listGroupItems(@PathVariable("groupId") Long groupId, ModelMap modelMap) {
-
         List<Item> items = userService.listGroupItems(groupId);
         modelMap.addAttribute("items", items);
         modelMap.addAttribute("groupId", groupId);
@@ -66,12 +66,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.POST)
-    public String doCreateItem(@PathVariable("groupId") Long groupId, HttpServletRequest request) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String doCreateItem(@PathVariable("groupId") Long groupId, HttpServletRequest request, @CurrentUser Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
         String content = request.getParameter("itemContent");
         Item item = Item.of(content, currentUser, currentUser, null, Status.NEW, 0);
         userService.createItem(groupId, item);
-
         return "redirect:/group/" + groupId + "/items";
     }
 }

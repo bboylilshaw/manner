@@ -1,12 +1,17 @@
 package org.jshaw.manner.service;
 
+import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.repository.GroupRepository;
 import org.jshaw.manner.repository.ItemRepository;
 import org.jshaw.manner.repository.UserRepository;
+import org.jshaw.manner.security.UserRepositoryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +30,23 @@ public class UserServiceImpl implements UserService {
     private ItemRepository itemRepository;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private UserRepositoryUserDetailsService userDetailsService;
+
+    @Override
+    @Transactional
+    public void signup(User user) {
+        String rawPassword = user.getPassword();
+        user.setPassword(encoder.encode(rawPassword));
+        user.setRole(Role.USER);
+        userRepository.save(user);
+        //load user and set auth
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        auth.setDetails(userDetails);
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
 
     @Override
     @Transactional
