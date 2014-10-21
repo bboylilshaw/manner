@@ -12,13 +12,12 @@
     <div class="row">
         <div id="side-bar" class="medium-2 columns" th:include="layout/side-bar :: side-bar"></div>
         <div id="content" class="medium-10 columns">
-            <h1>hello jason shaw</h1>
-            <h2>hello jason shaw</h2>
-            <h3>hello jason shaw</h3>
-            <h4>hello jason shaw</h4>
-            <h5>hello jason shaw</h5>
-            <h6>hello jason shaw</h6>
-            <p>hello jason shaw</p>
+            <div></div>
+            <div th:if="${message!=null}" data-alert="" class="alert-box info">
+                <div th:text="${message}">message placeholder</div>
+                <a href="#" class="close">&times;</a>
+            </div>
+            <div th:text="${#authentication}"></div>
         </div>
     </div>
     <footer th:replace="layout/footer :: footer">Footer</footer>

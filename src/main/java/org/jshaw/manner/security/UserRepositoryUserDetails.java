@@ -3,7 +3,7 @@ package org.jshaw.manner.security;
 import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -16,14 +16,17 @@ public class UserRepositoryUserDetails extends User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authList = new ArrayList<>();
         if (super.getRole().equals(Role.SUPER_ADMIN)) {
-            authList.add(new SimpleGrantedAuthority("ROLE_SUPER_ADMIN"));
-            authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authList = AuthorityUtils.createAuthorityList("ROLE_SUPER_ADMIN", "ROLE_SUPER_ADMIN", "ROLE_USER");
+//            authList.add(new SimpleGrantedAuthority("ROLE_SUPER_ADMIN"));
+//            authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         } else if (super.getRole().equals(Role.ADMIN)) {
-            authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authList = AuthorityUtils.createAuthorityList("ROLE_SUPER_ADMIN", "ROLE_USER");
+//            authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         } else if (super.getRole().equals(Role.USER)) {
-            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authList = AuthorityUtils.createAuthorityList("ROLE_USER");
+//            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return authList;
     }

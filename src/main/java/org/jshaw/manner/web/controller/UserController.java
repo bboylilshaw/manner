@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
@@ -43,11 +44,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public String doCreateGroup(HttpServletRequest request, @CurrentUser Authentication authentication) {
+    public String doCreateGroup(HttpServletRequest request, @CurrentUser Authentication authentication, RedirectAttributes redirectAttributes) {
         String groupName = request.getParameter("groupName");
         User currentUser = (User) authentication.getPrincipal();
         Group group = Group.of(groupName, new Date(), currentUser, new HashSet<>());
         userService.createGroup(currentUser, group);
+        redirectAttributes.addFlashAttribute("message", "Added group successfully!");
         return "redirect:/";
     }
 
