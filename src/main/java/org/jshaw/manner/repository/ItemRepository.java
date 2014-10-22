@@ -10,6 +10,7 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByGroup(Group group);
     List<Item> findByGroup(Group group, Pageable pageable);
+    Long countByGroup(Group group);
     List<Item> findByCreatedBy(Long createdById);
     List<Item> findByOwner(Long ownerId);
 }

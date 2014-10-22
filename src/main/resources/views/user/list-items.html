@@ -31,11 +31,23 @@
                     <td th:text="${item.createdBy.username}">Creator goes here</td>
                     <td th:text="${item.status}">Status goes here</td>
                     <td th:text="${item.percentage}">Percentage goes here</td>
-                    <!--<td><span th:if="${user.role==T(com.hp.manner.model.Role).ADMIN}" class="label label-info">Admin</span></td>-->
                 </tr>
                 </tbody>
             </table>
-            <a href="#" class="button" th:href="@{'/group/' + ${groupId} + '/item'}">Create New Item</a>
+            <div class="pagination-centered">
+                <ul id="pagination" class="pagination">
+                    <li class="arrow"><a href="#">&laquo;</a></li>
+                    <li class="current"><a href="#">1</a></li>
+                    <!--<li><a href="">2</a></li>-->
+                    <!--<li><a href="">3</a></li>-->
+                    <!--<li><a href="">4</a></li>-->
+                    <!--<li><a href="">&hellip;</a></li>-->
+                    <li><a href="#" th:href="@{|/group/${groupId}/items|(startPage=${totalPage - 1})}" th:text="${totalPage}">13</a></li>
+                    <li class="arrow"><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+
+            <a href="#" class="button" th:href="@{|/group/${groupId}/item|}">Create New Item</a>
         </div>
     </div>
     <footer th:replace="layout/footer :: footer">Footer</footer>

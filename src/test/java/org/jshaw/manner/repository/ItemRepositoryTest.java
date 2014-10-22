@@ -18,12 +18,11 @@ public class ItemRepositoryTest extends AbstractIntegrationTest {
     public void testFindByGroup() throws Exception {
         Group group = groupRepository.findOne(1L);
         itemRepository.findByGroup(group, new PageRequest(1, 5, Sort.Direction.ASC, "id"))
-                .forEach(
-                        e -> {
-                            System.out.println(e.getId());
-                            System.out.println(e.getContent());
-                        }
-                );
-
+                .forEach(e -> {
+                    System.out.println(e.getId());
+                    System.out.println(e.getContent());
+                });
+        System.out.println(itemRepository.countByGroup(group));
     }
+
 }

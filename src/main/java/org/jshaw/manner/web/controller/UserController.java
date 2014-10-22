@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +41,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public String doCreateGroup(HttpServletRequest request, @CurrentUser Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String doCreateGroup(@CurrentUser Authentication authentication,
+                                HttpServletRequest request,
+                                RedirectAttributes redirectAttributes) {
         String groupName = request.getParameter("groupName");
         User currentUser = (User) authentication.getPrincipal();
         Group group = Group.of(groupName, new Date(), currentUser, new HashSet<>());
@@ -54,9 +53,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/group/{groupId}/items", method = RequestMethod.GET)
-    public String listGroupItems(@PathVariable("groupId") Long groupId, ModelMap modelMap) {
-        List<Item> items = userService.listGroupItems(groupId);
+    public String listGroupItems(@PathVariable("groupId") Long groupId,
+                                 @RequestParam(value = "startPage", defaultValue = "0") int startPage,
+                                 ModelMap modelMap) {
+        List<Item> items = userService.listGroupItems(groupId, startPage);
+        int totalPage = userService.getTotalPage(groupId);
         modelMap.addAttribute("items", items);
+        modelMap.addAttribute("totalPage", totalPage);
         modelMap.addAttribute("groupId", groupId);
         return "user/list-items";
     }
@@ -68,7 +71,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.POST)
-    public String doCreateItem(@PathVariable("groupId") Long groupId, HttpServletRequest request, @CurrentUser Authentication authentication) {
+    public String doCreateItem(@PathVariable("groupId") Long groupId,
+                               @CurrentUser Authentication authentication,
+                               HttpServletRequest request) {
         User currentUser = (User) authentication.getPrincipal();
         String content = request.getParameter("itemContent");
         Item item = Item.of(content, currentUser, currentUser, null, Status.NEW, 0);
