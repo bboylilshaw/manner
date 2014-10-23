@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{app.name}">Team Manner</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -24,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="item, status : ${items}" >
+                <tr th:each="item, status : ${page.content}" >
                     <td th:text="${status.count}"></td>
                     <td th:text="${item.content}">Content goes here</td>
                     <td th:text="${item.owner.username}">Owner goes here</td>
@@ -34,17 +34,33 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="pagination-centered">
-                <ul id="pagination" class="pagination">
-                    <li id="previousPage" class="arrow"><a href="#">&laquo;</a></li>
-                    <!--<li class="current"><a href="#">1</a></li>-->
-                    <!--<li><a href="">2</a></li>-->
-                    <!--<li><a href="">3</a></li>-->
-                    <!--<li><a href="">4</a></li>-->
-                    <!--<li><a href="">&hellip;</a></li>-->
-                    <!--<li><a href="#" th:href="@{|/group/${groupId}/items|(startPage=${totalPage - 1})}" th:text="${totalPage}">13</a></li>-->
-                    <li id="nextPage" class="arrow"><a href="#">&raquo;</a></li>
-                </ul>
+            <!--<div class="pagination-centered">-->
+                <!--<ul id="pagination" class="pagination">-->
+                    <!--<li id="previousPage" class="arrow"><a href="#">&laquo;</a></li>-->
+                    <!--&lt;!&ndash;<li class="current"><a href="#">1</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li><a href="">2</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li><a href="">3</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li><a href="">4</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li><a href="">&hellip;</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li><a href="#" th:href="@{|/group/${groupId}/items|(startPage=${totalPage - 1})}" th:text="${totalPage}">13</a></li>&ndash;&gt;-->
+                    <!--<li id="nextPage" class="arrow"><a href="#">&raquo;</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!-- Pagination Bar -->
+            <div th:fragment="paginationbar">
+                <div class="pagination-centered">
+                    <ul class="pagination">
+                        <li th:class="${page.hasPrevious()}? 'arrow' : 'arrow unavailable'">
+                            <a aria-disabled="true" th:if="${not page.hasPrevious()}">&laquo; Previous</a>
+                            <a href="#" th:if="${page.hasPrevious()}" th:href="@{|/group/${groupId}/items|(startPage=${page.getNumber()-1})}">&laquo; Previous</a>
+                        </li>
+                        <li class="unavailable"><a aria-disabled="true">|</a></li>
+                        <li th:class="${page.hasNext()}? 'arrow' : 'arrow unavailable'">
+                            <a aria-disabled="true" th:if="${not page.hasNext()}">Next &raquo;</a>
+                            <a href="#" th:if="${page.hasNext()}" th:href="@{|/group/${groupId}/items|(startPage=${page.getNumber()+1})}">Next &raquo;</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <a href="#" class="button" th:href="@{|/group/${groupId}/item|}">Create New Item</a>
@@ -53,19 +69,6 @@
     <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script th:inline="javascript">
-
-    $(document).foundation();
-
-    //pagination
-    var totalPages = 5;
-    var currentPage = 1;
-
-    for (var i = 0; i < totalPages; i++) {
-        var templateHtml = '<li><a href="#">'+1+'</a></li>';
-    }
-    $('#pagination li#previousPage').after(templateHtml);
-
-</script>
+<script src="../../static/js/app.js" th:src="@{/js/app.js}"></script>
 </body>
 </html>

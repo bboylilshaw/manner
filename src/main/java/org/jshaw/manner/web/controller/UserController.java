@@ -9,6 +9,7 @@ import org.jshaw.manner.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -56,10 +56,8 @@ public class UserController {
     public String listGroupItems(@PathVariable("groupId") Long groupId,
                                  @RequestParam(value = "startPage", defaultValue = "0") int startPage,
                                  ModelMap modelMap) {
-        List<Item> items = userService.listGroupItems(groupId, startPage);
-        int totalPage = userService.getTotalPage(groupId);
-        modelMap.addAttribute("items", items);
-        modelMap.addAttribute("totalPage", totalPage);
+        Page<Item> itemPage = userService.listGroupItems(groupId, startPage);
+        modelMap.addAttribute("page", itemPage);
         modelMap.addAttribute("groupId", groupId);
         return "user/list-items";
     }

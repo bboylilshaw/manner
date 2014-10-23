@@ -9,6 +9,7 @@ import org.jshaw.manner.repository.ItemRepository;
 import org.jshaw.manner.repository.UserRepository;
 import org.jshaw.manner.security.UserRepositoryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Item> listGroupItems(Long groupId, int startPage) {
+    public Page<Item> listGroupItems(Long groupId, int startPage) {
         Group group = groupRepository.findOne(groupId);
         PageRequest pageRequest = new PageRequest(startPage, 10);
         return itemRepository.findByGroup(group, pageRequest);
@@ -102,11 +103,4 @@ public class UserServiceImpl implements UserService {
         return itemRepository.save(item);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public int getTotalPage(Long groupId) {
-        Group group = groupRepository.findOne(groupId);
-        Long itemsCount = itemRepository.countByGroup(group);
-        return (int) Math.ceil(itemsCount / 10d);
-    }
 }

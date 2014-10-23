@@ -3,6 +3,7 @@ package org.jshaw.manner.service;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
+import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +15,6 @@ public interface UserService {
     Collection<Group> listGroups(Long userId);
     Collection<User> listUsersInGroup(Long groupId);
     List<Item> listGroupItems(Long groupId);
-    List<Item> listGroupItems(Long groupId, int startPage);
+    Page<Item> listGroupItems(Long groupId, int startPage);
     Item createItem(Long groupId, Item item);
-    int getTotalPage(Long groupId);
 }
