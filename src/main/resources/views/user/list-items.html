@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{app.name}">Team Manner</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -36,14 +36,14 @@
             </table>
             <div class="pagination-centered">
                 <ul id="pagination" class="pagination">
-                    <li class="arrow"><a href="#">&laquo;</a></li>
-                    <li class="current"><a href="#">1</a></li>
+                    <li id="previousPage" class="arrow"><a href="#">&laquo;</a></li>
+                    <!--<li class="current"><a href="#">1</a></li>-->
                     <!--<li><a href="">2</a></li>-->
                     <!--<li><a href="">3</a></li>-->
                     <!--<li><a href="">4</a></li>-->
                     <!--<li><a href="">&hellip;</a></li>-->
-                    <li><a href="#" th:href="@{|/group/${groupId}/items|(startPage=${totalPage - 1})}" th:text="${totalPage}">13</a></li>
-                    <li class="arrow"><a href="#">&raquo;</a></li>
+                    <!--<li><a href="#" th:href="@{|/group/${groupId}/items|(startPage=${totalPage - 1})}" th:text="${totalPage}">13</a></li>-->
+                    <li id="nextPage" class="arrow"><a href="#">&raquo;</a></li>
                 </ul>
             </div>
 
@@ -53,8 +53,19 @@
     <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script>
+<script th:inline="javascript">
+
     $(document).foundation();
+
+    //pagination
+    var totalPages = 5;
+    var currentPage = 1;
+
+    for (var i = 0; i < totalPages; i++) {
+        var templateHtml = '<li><a href="#">'+1+'</a></li>';
+    }
+    $('#pagination li#previousPage').after(templateHtml);
+
 </script>
 </body>
 </html>
