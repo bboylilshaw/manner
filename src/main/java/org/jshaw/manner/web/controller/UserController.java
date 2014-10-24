@@ -1,5 +1,6 @@
 package org.jshaw.manner.web.controller;
 
+import org.jshaw.manner.common.Priority;
 import org.jshaw.manner.common.Status;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -74,7 +77,7 @@ public class UserController {
                                HttpServletRequest request) {
         User currentUser = (User) authentication.getPrincipal();
         String content = request.getParameter("itemContent");
-        Item item = Item.of(content, currentUser, currentUser, null, Status.NEW, 0);
+        Item item = Item.of(content, currentUser, currentUser, LocalDate.now(Clock.systemUTC()), null, Status.NEW, 0, null, null, Priority.HIGH, null);
         userService.createItem(groupId, item);
         return "redirect:/group/" + groupId + "/items";
     }

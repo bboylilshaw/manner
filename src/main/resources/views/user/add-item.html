@@ -13,10 +13,62 @@
         <div id="content" class="medium-10 columns">
             <form th:action="@{'/group/' + ${groupId} + '/item'}" method="post" role="form">
                 <div class="row">
-                    <div class="medium-6 columns">
+                    <div class="medium-12 columns">
                         <label for="itemContent">
                             Content:
                             <input type="text" name="itemContent" id="itemContent" required="true"/>
+                        </label>
+                    </div>
+                    <div class="medium-4 columns">
+                        <label for="itemOwner">
+                            Owner:
+                            <input type="text" name="itemOwner" id="itemOwner" required="true"/>
+                        </label>
+                    </div>
+                    <div class="medium-4 columns">
+                        <label for="itemStatus">
+                            Status:
+                            <input type="text" name="itemStatus" id="itemStatus" required="true" />
+                        </label>
+                    </div>
+                    <div class="medium-2 columns">
+                        <div class="row collapse">
+                            <label>Percentage:</label>
+                            <div class="small-8 columns">
+                                <input type="number" name="itemPercentage" id="itemPercentage" min="0" max="100"/>
+                            </div>
+                            <div class="small-4 columns">
+                                <span class="postfix">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="medium-4 columns">
+                        <label for="itemDueDate">
+                            Due date:
+                            <input type="date" name="itemDueDate" id="itemDueDate" />
+                        </label>
+                    </div>
+                    <div class="medium-4 columns">
+                        <label for="itemDeferDate">
+                            Defer Date:
+                            <input type="date" name="itemDeferDate" id="itemDeferDate" />
+                        </label>
+                    </div>
+                    <div class="medium-2 columns">
+                        <label for="itemPriority">
+                            Priority:
+                            <select name="itemPriority" id="itemPriority">
+                                <option value="URGENT">Urgent</option>
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM" selected="selected">Medium</option>
+                                <option value="LOW">Low</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="medium-12 columns">
+                        <label for="itemRemarks">
+                            Remarks:
+                            <input type="text" name="itemRemarks" id="itemRemarks" required="true"/>
                         </label>
                     </div>
                 </div>

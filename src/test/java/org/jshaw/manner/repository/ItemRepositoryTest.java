@@ -1,12 +1,18 @@
 package org.jshaw.manner.repository;
 
 import org.jshaw.manner.AbstractIntegrationTest;
+import org.jshaw.manner.common.Priority;
+import org.jshaw.manner.common.Status;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
+import org.jshaw.manner.domain.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import java.time.Clock;
+import java.time.LocalDate;
 
 public class ItemRepositoryTest extends AbstractIntegrationTest {
 
@@ -14,6 +20,8 @@ public class ItemRepositoryTest extends AbstractIntegrationTest {
     ItemRepository itemRepository;
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Test
     public void testFindByGroup() throws Exception {
@@ -27,6 +35,17 @@ public class ItemRepositoryTest extends AbstractIntegrationTest {
         System.out.println(itemPage.isFirst());
         System.out.println(itemPage.hasPrevious());
         System.out.println(itemPage.hasNext());
+    }
+
+    @Test
+    public void testSave() throws Exception {
+        String content = "test";
+        User user = userRepository.findOne(1L);
+        Item item = Item.of(content, user, user, LocalDate.now(Clock.systemUTC()), null, Status.NEW, 0, null, null, Priority.HIGH, null);
+        LocalDate localDate = LocalDate.now(Clock.systemUTC());
+        LocalDate localDate1 = LocalDate.now();
+        System.out.println(localDate);
+        System.out.println(localDate == localDate1);
     }
 
 }

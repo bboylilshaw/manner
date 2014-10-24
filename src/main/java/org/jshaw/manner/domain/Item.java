@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.jshaw.manner.common.Priority;
 import org.jshaw.manner.common.Status;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "t_item")
@@ -31,6 +33,8 @@ public class Item extends AbstractPersistable<Long> {
     @ManyToOne
     private User createdBy;
 
+    private LocalDate createdDate;
+
     @ManyToOne
     private Group group;
 
@@ -39,17 +43,12 @@ public class Item extends AbstractPersistable<Long> {
     @Min(0) @Max(100)
     private int percentage;
 
-//    private Date dueDate;
-//
-//    private Date deferDate;
-//
-//    private Priority priority;
-//
-//    private String category;
-//
-//    private String remarks;
-//
-//    @Min(0) @Max(5)
-//    private int level;
+    private LocalDate dueDate;
+
+    private LocalDate deferDate;
+
+    private Priority priority;
+
+    private String remarks;
 
 }
