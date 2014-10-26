@@ -4,6 +4,7 @@
     <title th:text="#{app.name}">Team Manner</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
+    <link href="../../static/css/foundation-datepicker.css" rel="stylesheet" media="screen" th:href="@{/css/foundation-datepicker.css}"/>
     <link href="../../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
     <script src="../../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
 </head>
@@ -11,31 +12,39 @@
     <header th:replace="layout/header :: top-bar">Top-bar</header>
     <div class="row">
         <div id="content" class="medium-10 columns">
-            <form th:action="@{'/group/' + ${groupId} + '/item'}" method="post" role="form">
+            <div th:text="${groupId}"></div>
+            <div th:text="${#dates.createToday()}"></div>
+            <form th:action="@{|/group/${groupId}/item|}" method="post" role="form">
                 <div class="row">
                     <div class="medium-12 columns">
-                        <label for="itemContent">
+                        <label for="item-content">
                             Content:
-                            <input type="text" name="itemContent" id="itemContent" required="true"/>
+                            <input type="text" name="content" id="item-content" required="true" />
                         </label>
                     </div>
                     <div class="medium-4 columns">
-                        <label for="itemOwner">
+                        <label for="item-owner">
                             Owner:
-                            <input type="text" name="itemOwner" id="itemOwner" required="true"/>
+                            <select name="ownerId" id="item-owner">
+                                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}">Owner email</option>
+                            </select>
                         </label>
                     </div>
                     <div class="medium-4 columns">
-                        <label for="itemStatus">
+                        <label for="item-status">
                             Status:
-                            <input type="text" name="itemStatus" id="itemStatus" required="true" />
+                            <select name="status" id="item-status">
+                                <option value="NEW">New</option>
+                                <option value="WORK_IN_PROGRESS">Work In Progress</option>
+                                <option value="COMPLETE">Complete</option>
+                            </select>
                         </label>
                     </div>
                     <div class="medium-2 columns">
                         <div class="row collapse">
                             <label>Percentage:</label>
                             <div class="small-8 columns">
-                                <input type="number" name="itemPercentage" id="itemPercentage" min="0" max="100"/>
+                                <input type="number" name="percentage" id="item-percentage" min="0" max="100" value="0" />
                             </div>
                             <div class="small-4 columns">
                                 <span class="postfix">%</span>
@@ -43,21 +52,15 @@
                         </div>
                     </div>
                     <div class="medium-4 columns">
-                        <label for="itemDueDate">
+                        <label for="item-due-date">
                             Due date:
-                            <input type="date" name="itemDueDate" id="itemDueDate" />
-                        </label>
-                    </div>
-                    <div class="medium-4 columns">
-                        <label for="itemDeferDate">
-                            Defer Date:
-                            <input type="date" name="itemDeferDate" id="itemDeferDate" />
+                            <input type="text" name="dueDate" id="item-due-date" />
                         </label>
                     </div>
                     <div class="medium-2 columns">
-                        <label for="itemPriority">
+                        <label for="item-priority">
                             Priority:
-                            <select name="itemPriority" id="itemPriority">
+                            <select name="priority" id="item-priority">
                                 <option value="URGENT">Urgent</option>
                                 <option value="HIGH">High</option>
                                 <option value="MEDIUM" selected="selected">Medium</option>
@@ -66,9 +69,9 @@
                         </label>
                     </div>
                     <div class="medium-12 columns">
-                        <label for="itemRemarks">
+                        <label for="item-remarks">
                             Remarks:
-                            <input type="text" name="itemRemarks" id="itemRemarks" required="true"/>
+                            <input type="text" name="remarks" id="item-remarks" />
                         </label>
                     </div>
                 </div>
@@ -79,8 +82,12 @@
     <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
+<script src="../../static/js/vendor/foundation-datepicker.js" th:src="@{/js/vendor/foundation-datepicker.js}"></script>
 <script>
     $(document).foundation();
+    $(function() {
+        $('#item-due-date').fdatepicker();
+    });
 </script>
 </body>
 </html>

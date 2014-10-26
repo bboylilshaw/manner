@@ -1,7 +1,6 @@
 package org.jshaw.manner.repository;
 
 import org.jshaw.manner.AbstractIntegrationTest;
-import org.jshaw.manner.common.Priority;
 import org.jshaw.manner.common.Status;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
@@ -41,7 +40,10 @@ public class ItemRepositoryTest extends AbstractIntegrationTest {
     public void testSave() throws Exception {
         String content = "test";
         User user = userRepository.findOne(1L);
-        Item item = Item.of(content, user, user, LocalDate.now(Clock.systemUTC()), null, Status.NEW, 0, null, null, Priority.HIGH, null);
+        //Item item = Item.of(content, user, user, LocalDate.now(Clock.systemUTC()), null, Status.NEW, 0, null, Priority.HIGH, null);
+        System.out.println(Status.NEW.getText());
+        System.out.println(Status.NEW);
+        System.out.println(Status.WORK_IN_PROGRESS);
         LocalDate localDate = LocalDate.now(Clock.systemUTC());
         LocalDate localDate1 = LocalDate.now();
         System.out.println(localDate);

@@ -13,7 +13,9 @@
     <ul class="side-nav">
         <li class="heading">Groups</li>
         <li><a href="#" data-reveal-id="add-group-form">Add Group</a></li>
-        <li th:if="${groups.size()>0}" th:each="group : ${groups}"><a href="#" th:text="${group.name}" th:href="@{'/group/' + ${group.id} + '/items'}">Group Name</a></li>
+        <li th:if="${groups.size()>0}" th:each="group : ${groups}" th:class="${group.id==groupId}? 'active' : ''">
+            <a href="#" th:text="${group.name}" th:href="@{'/group/' + ${group.id} + '/items'}">Group Name</a>
+        </li>
     </ul>
     <div id="add-group-form" class="reveal-modal small" data-reveal="">
         <h3>group name:</h3>

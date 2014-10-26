@@ -8,13 +8,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.jshaw.manner.common.Priority;
 import org.jshaw.manner.common.Status;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_item")
@@ -33,7 +34,7 @@ public class Item extends AbstractPersistable<Long> {
     @ManyToOne
     private User createdBy;
 
-    private LocalDate createdDate;
+    private Date createdDate;
 
     @ManyToOne
     private Group group;
@@ -43,9 +44,8 @@ public class Item extends AbstractPersistable<Long> {
     @Min(0) @Max(100)
     private int percentage;
 
-    private LocalDate dueDate;
-
-    private LocalDate deferDate;
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date dueDate;
 
     private Priority priority;
 

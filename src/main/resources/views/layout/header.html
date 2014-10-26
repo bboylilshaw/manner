@@ -13,7 +13,7 @@
     <nav id="top-bar-nav" class="top-bar" data-topbar="" role="navigation">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="#">Manner</a></h1>
+                <h1><a href="#" th:href="@{/}">Manner</a></h1>
             </li>
             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -37,6 +37,11 @@
             <ul sec:authorize="hasRole('ROLE_ANONYMOUS')" class="right navbar-btn">
                 <li class="has-form"><a href="#" th:href="@{/signin}" class="button">Sign In</a></li>
                 <li class="has-form"><a href="#" th:href="@{/signup}" class="button success">Sign Up</a></li>
+            </ul>
+
+            <!-- Left Nav Section -->
+            <ul class="left">
+                <li><a href="#" th:href="@{/groups}">Groups</a></li>
             </ul>
         </section>
     </nav>

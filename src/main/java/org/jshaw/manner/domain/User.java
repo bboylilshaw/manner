@@ -46,6 +46,7 @@ public class User extends AbstractPersistable<Long> {
 //            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
 //    @OneToMany(mappedBy = "user")
+
     private Collection<Group> groups = new HashSet<>();
 
 //    @OneToMany(mappedBy = "createdBy", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)

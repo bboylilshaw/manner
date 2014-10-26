@@ -58,6 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public User getUser(Long userId) {
+        return userRepository.findOne(userId);
+    }
+
+    @Override
     @Transactional
     public Group createGroup(User user, Group group) {
         //user.getGroups().add(group);
@@ -89,9 +95,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Item> listGroupItems(Long groupId, int startPage) {
+    public Page<Item> listGroupItems(Long groupId, int startPage, int pageSize) {
         Group group = groupRepository.findOne(groupId);
-        PageRequest pageRequest = new PageRequest(startPage, 10);
+        PageRequest pageRequest = new PageRequest(startPage, pageSize);
         return itemRepository.findByGroup(group, pageRequest);
     }
 
@@ -101,6 +107,18 @@ public class UserServiceImpl implements UserService {
         Group group = groupRepository.findOne(groupId);
         item.setGroup(group);
         return itemRepository.save(item);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Group> listAllGroups(Long userId) {
+        return (List<Group>)userRepository.findOne(userId).getGroups();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Group getGroupDetails(Long groupId) {
+        return groupRepository.findOne(groupId);
     }
 
 }

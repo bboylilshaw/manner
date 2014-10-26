@@ -21,14 +21,12 @@ public class UserRepositoryTest extends AbstractIntegrationTest {
 
     @Test
     public void testSave() throws Exception {
-
         List<User> users = new ArrayList<>();
-//        users.add(User.of("aaa","aaa","aaa","a@a.com","aaa", Role.ADMIN, new HashSet<>()));
-//        users.add(User.of("bbb","bbb","bbb","b@b.com","bbb", Role.ADMIN, new HashSet<>()));
-//        users.add(User.of("ccc","ccc","ccc","c@c.com","ccc", Role.ADMIN, new HashSet<>()));
-//        users.add(User.of("ddd","ddd","ddd","d@d.com","ddd", Role.ADMIN, new HashSet<>()));
-//        userRepository.save(users);
-        userRepository.save(User.of("jason", "Yao", "Xiao", "jason@jason.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
+        users.add(User.of("jason", "Yao", "Xiao", "jason@jason.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
+        users.add(User.of("john", "John", "Doe", "john@john.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
+        users.add(User.of("kei", "Kei", "Sang", "kei@kei.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
+        users.add(User.of("dino", "Dino", "Huang", "dino@dino.com", encoder.encode("123"), Role.ADMIN, new HashSet<>()));
+        userRepository.save(users);
     }
 
     @Test

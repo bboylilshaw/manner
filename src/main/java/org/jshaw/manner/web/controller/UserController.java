@@ -1,7 +1,5 @@
 package org.jshaw.manner.web.controller;
 
-import org.jshaw.manner.common.Priority;
-import org.jshaw.manner.common.Status;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
@@ -18,11 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.Clock;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -59,7 +56,8 @@ public class UserController {
     public String listGroupItems(@PathVariable("groupId") Long groupId,
                                  @RequestParam(value = "startPage", defaultValue = "0") int startPage,
                                  ModelMap modelMap) {
-        Page<Item> itemPage = userService.listGroupItems(groupId, startPage);
+        int pageSize = 10; //return 10 items each time
+        Page<Item> itemPage = userService.listGroupItems(groupId, startPage, pageSize);
         modelMap.addAttribute("page", itemPage);
         modelMap.addAttribute("groupId", groupId);
         return "user/list-items";
@@ -67,18 +65,40 @@ public class UserController {
 
     @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.GET)
     public String createItem(@PathVariable("groupId") Long groupId, ModelMap modelMap) {
+        List<User> users = (List<User>) userService.getGroupDetails(groupId).getUsers();
         modelMap.addAttribute("groupId", groupId);
+        modelMap.addAttribute("users", users);
         return "user/add-item";
     }
 
     @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.POST)
     public String doCreateItem(@PathVariable("groupId") Long groupId,
                                @CurrentUser Authentication authentication,
+                               @ModelAttribute Item item,
                                HttpServletRequest request) {
+        logger.info("adding a new item");
         User currentUser = (User) authentication.getPrincipal();
-        String content = request.getParameter("itemContent");
-        Item item = Item.of(content, currentUser, currentUser, LocalDate.now(Clock.systemUTC()), null, Status.NEW, 0, null, null, Priority.HIGH, null);
+        String ownerId = request.getParameter("ownerId");
+        User owner = userService.getUser(Long.parseLong(ownerId));
+        item.setCreatedBy(currentUser);
+        item.setCreatedDate(new Date());
+        item.setOwner(owner);
         userService.createItem(groupId, item);
         return "redirect:/group/" + groupId + "/items";
+    }
+
+    @RequestMapping(value = "/groups", method = RequestMethod.GET)
+    public String listGroups(@CurrentUser Authentication authentication, ModelMap modelMap) {
+        Long userId = ((User)authentication.getPrincipal()).getId();
+        List<Group> allGroups = userService.listAllGroups(userId);
+        modelMap.addAttribute("allGroups", allGroups);
+        return "user/list-groups";
+    }
+
+    @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
+    public String getGroupDetails(@PathVariable("groupId") Long groupId, ModelMap modelMap) {
+        Group group = userService.getGroupDetails(groupId);
+        modelMap.addAttribute("group", group);
+        return "user/group-details";
     }
 }

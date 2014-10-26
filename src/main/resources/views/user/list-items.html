@@ -16,9 +16,10 @@
                 <thead>
                 <tr>
                     <th width="5%">#</th>
-                    <th width="55%">Content</th>
-                    <th width="15%">Owner</th>
-                    <th width="15%">Creator</th>
+                    <th width="60%">Content</th>
+                    <th width="10%">Owner</th>
+                    <th width="10%">Creator</th>
+                    <th width="5%">Priority</th>
                     <th width="5%">Status</th>
                     <th width="5%">Percentage</th>
                 </tr>
@@ -29,8 +30,9 @@
                     <td th:text="${item.content}">Content goes here</td>
                     <td th:text="${item.owner.username}">Owner goes here</td>
                     <td th:text="${item.createdBy.username}">Creator goes here</td>
+                    <td><span class="label" th:text="${item.priority}"></span></td>
                     <td th:text="${item.status}">Status goes here</td>
-                    <td th:text="${item.percentage}">Percentage goes here</td>
+                    <td th:text="${item.percentage + '&#37;'}">Percentage goes here</td>
                 </tr>
                 </tbody>
             </table>
