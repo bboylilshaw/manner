@@ -4,6 +4,7 @@ import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.security.CurrentUser;
+import org.jshaw.manner.service.GroupService;
 import org.jshaw.manner.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -28,6 +28,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private GroupService groupService;
 
     @ModelAttribute("groups")
     private Collection<Group> groups(@CurrentUser Authentication authentication) {
@@ -46,8 +48,7 @@ public class UserController {
                                 RedirectAttributes redirectAttributes) {
         String groupName = request.getParameter("groupName");
         User currentUser = (User) authentication.getPrincipal();
-        Group group = Group.of(groupName, new Date(), currentUser, new HashSet<>());
-        userService.createGroup(currentUser, group);
+        groupService.addGroup(groupName, currentUser);
         redirectAttributes.addFlashAttribute("message", "Added group successfully!");
         return "redirect:/";
     }

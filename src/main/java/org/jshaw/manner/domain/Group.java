@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -18,11 +19,14 @@ import java.util.HashSet;
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
 public class Group extends AbstractPersistable<Long> {
+
     private String name;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User createdBy;
+    private User owner;
 
     @ManyToMany(
             targetEntity = User.class,
@@ -34,18 +38,15 @@ public class Group extends AbstractPersistable<Long> {
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-//    @OneToMany(mappedBy = "group")
     private Collection<User> users = new HashSet<>();
-
-//    @OneToMany(mappedBy = "group", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-//    private Collection<Item> items = new ArrayList<>();
 
     @Override
     public String toString() {
         return "Group{" +
                 "name='" + name + '\'' +
                 ", createdDate=" + createdDate +
-                ", createdBy='" + createdBy + '\'' +
+                ", owner='" + owner + '\'' +
                 '}';
     }
+
 }

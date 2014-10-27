@@ -16,8 +16,6 @@ public interface UserService {
 
     User getUser(Long userId);
 
-    Group createGroup(User user, Group group);
-
     Collection<Group> listGroups(Long userId);
 
     Collection<User> listUsersInGroup(Long groupId);

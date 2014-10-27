@@ -64,17 +64,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public Group createGroup(User user, Group group) {
-        //user.getGroups().add(group);
-        //userRepository.save(user);
-        group.setCreatedBy(user);
-        group.getUsers().add(user);
-        user.getGroups().add(group);
-        return groupRepository.save(group);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public Collection<Group> listGroups(Long userId) {
         return userRepository.findOne(userId).getGroups();
