@@ -102,4 +102,12 @@ public class UserController {
         modelMap.addAttribute("group", group);
         return "user/group-details";
     }
+
+    @RequestMapping(value = "/group/{groupId}", method = RequestMethod.DELETE)
+    public String deleteGroup(@PathVariable("groupId") Long groupId, RedirectAttributes redirectAttributes) {
+        groupService.deleteGroup(groupId);
+        redirectAttributes.addFlashAttribute("messageType", "info");
+        redirectAttributes.addFlashAttribute("message", "deleted group successfully!");
+        return "redirect:/";
+    }
 }

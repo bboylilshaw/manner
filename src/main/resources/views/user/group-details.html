@@ -25,7 +25,7 @@
                     <h5 class="right">Owner:</h5>
                 </div>
                 <div class="small-9 columns">
-                    <h5 class="left" th:text="${group.createdBy.username}">Jason</h5>
+                    <h5 class="left" th:text="${group.owner.username}">Jason</h5>
                 </div>
                 <div class="small-3 columns">
                     <h5 class="right">Created Date:</h5>
@@ -40,11 +40,36 @@
                     <h5 class="left" th:text="${group.users.size()}">8</h5>
                 </div>
             </div>
+            <div class="row">
+                <a class="button">Add Member</a>
+                <a class="button">Transfer Ownership</a>
+                <a id="delete-group-btn" class="button alert" data-reveal-id="delete-group">Delete</a>
+                <div id="delete-group" class="reveal-modal small" data-reveal="">
+                    <h3>Are you sure?</h3>
+                    <p class="lead">This action <strong>CANNOT</strong> be undone. This will permanently delete the group and items in this group.</p>
+                    <a id="delete-group-ok" class="button">OK</a>
+                    <a id="delete-group-cancel" class="secondary button">Cancel</a>
+                    <a id="close-delete-group" class="close-reveal-modal">&#215;</a>
+                </div>
+                <form id="delete-group-form" th:action="@{'/group/' + ${groupId}}">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                </form>
+            </div>
         </div>
     </div>
     <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script src="../../static/js/app.js" th:src="@{/js/app.js}"></script>
+<script>
+//    $(function () {
+    $('#delete-group-ok').on('click', function(){
+        $('#delete-group-form').submit();
+    });
+    $('#delete-group-cancel').on('click', function(){
+        $('#close-delete-group').click();
+    });
+//    });
+</script>
 </body>
 </html>

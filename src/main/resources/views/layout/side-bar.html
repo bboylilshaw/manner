@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-        >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Side Bar</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -12,21 +11,12 @@
 <div id="side-bar" th:fragment="side-bar">
     <ul class="side-nav">
         <li class="heading">Groups</li>
-        <li><a href="#" data-reveal-id="add-group-form">Add Group</a></li>
+        <li><a href="#" data-reveal-id="add-group-modal">Add Group</a></li>
         <li th:if="${groups.size()>0}" th:each="group : ${groups}" th:class="${group.id==groupId}? 'active' : ''">
             <a href="#" th:text="${group.name}" th:href="@{'/group/' + ${group.id} + '/items'}">Group Name</a>
         </li>
     </ul>
-    <div id="add-group-form" class="reveal-modal small" data-reveal="">
-        <h3>group name:</h3>
-        <form th:action="@{/group}" method="post" role="form">
-            <label for="groupName">
-                <input type="text" name="groupName" id="groupName" required="true"/>
-            </label>
-            <input type="submit" value="Create" class="button small"/>
-        </form>
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
+    <div id="add-group-modal" class="reveal-modal small" data-reveal="" th:include="user/add-group :: add-group-modal"></div>
 </div>
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
