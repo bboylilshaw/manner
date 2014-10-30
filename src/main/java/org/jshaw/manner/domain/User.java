@@ -15,9 +15,14 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Entity
-@Table(name = "t_user",
-        indexes = @Index(name = "username_index", columnList = "username", unique = true),
-        uniqueConstraints = @UniqueConstraint(name = "email_uni", columnNames = "email"))
+@Table(
+        name = "t_user",
+        indexes = {
+                @Index(name = "username_index", columnList = "username", unique = true),
+                @Index(name = "email_index", columnList = "email", unique = true),
+        }
+//        uniqueConstraints = @UniqueConstraint(name = "email_uni", columnNames = "email")
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,33 +32,24 @@ public class User extends AbstractPersistable<Long> {
     @NotEmpty
     //@Pattern(regexp = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
     private String username;
+
     @NotNull
     private String firstName;
+
     @NotNull
     private String lastName;
+
     @Email
     private String email;
+
     @NotEmpty
     private String password;
+
     @NotNull
     private Role role;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @ManyToMany(
-            targetEntity = Group.class,
-            mappedBy = "users",
-            fetch = FetchType.EAGER
-//            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
-    )
-//    @OneToMany(mappedBy = "user")
-
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Collection<Group> groups = new HashSet<>();
-
-//    @OneToMany(mappedBy = "createdBy", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-//    private Collection<Item> createdItems = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-//    private Collection<Item> ownedItems = new ArrayList<>();
 
     @Override
     public String toString() {

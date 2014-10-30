@@ -51,7 +51,7 @@
                     <a id="delete-group-cancel" class="secondary button">Cancel</a>
                     <a id="close-delete-group" class="close-reveal-modal">&#215;</a>
                 </div>
-                <form id="delete-group-form" th:action="@{'/group/' + ${groupId}}">
+                <form id="delete-group-form" th:action="@{'/group/' + ${groupId}}" method="post">
                     <input type="hidden" name="_method" value="DELETE"/>
                 </form>
             </div>

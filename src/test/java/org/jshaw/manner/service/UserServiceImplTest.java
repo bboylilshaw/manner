@@ -22,12 +22,6 @@ public class UserServiceImplTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void testListGroups() throws Exception {
-        testAddGroup();
-        userService.listGroups(1L).forEach(System.out::println);
-    }
-
-    @Test
     public void testListUsersInGroup() throws Exception {
         testAddGroup();
         userService.listUsersInGroup(1L).forEach(System.out::println);

@@ -39,6 +39,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Group> listGroups(Long userId) {
+        return (List<Group>) userRepository.findOne(userId).getGroups();
+    }
+
+    @Override
     @Transactional
     public Group updateGroup(Long groupId, Group updatedGroup) {
         Group group = groupRepository.findOne(groupId);
@@ -51,9 +57,6 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public void deleteGroup(Long groupId) {
         Group group = groupRepository.getOne(groupId);
-        group.getUsers().forEach(u -> {
-            u.getGroups().remove(group);
-        });
         group.setOwner(null);
         group.setUsers(null);
         groupRepository.delete(groupId);

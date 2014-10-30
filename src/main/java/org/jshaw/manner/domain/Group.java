@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,17 +29,16 @@ public class Group extends AbstractPersistable<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     private User owner;
 
-    @ManyToMany(
-            targetEntity = User.class,
-            fetch = FetchType.LAZY
-//            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
-    )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "t_group_user",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Collection<User> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Collection<Item> items = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -10,7 +10,7 @@
 <body>
     <header th:replace="layout/header :: top-bar">Top-bar</header>
     <div class="row">
-        <div th:each="group : ${allGroups}" class="large-3 medium-4 small-6 columns left">
+        <div th:each="group : ${groups}" class="large-3 medium-4 small-6 columns left">
             <a href="#" th:href="@{|/group/${group.id}|}">
                 <img class="th" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/300x300&amp;text=${group.name}|}"/>
             </a>

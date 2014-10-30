@@ -1,11 +1,15 @@
 package org.jshaw.manner;
 
+import org.jshaw.manner.domain.User;
+import org.jshaw.manner.security.SpringSecurityAuditorAwareImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -23,6 +27,7 @@ import java.util.Properties;
 @ComponentScan
 @EnableAutoConfiguration
 @EnableJpaRepositories
+@EnableJpaAuditing
 public class Application extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
@@ -75,6 +80,11 @@ public class Application extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean
+    public AuditorAware<User> auditorAware() {
+        return new SpringSecurityAuditorAwareImpl();
     }
 
 //    @Bean
