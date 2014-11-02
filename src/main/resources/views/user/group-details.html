@@ -32,7 +32,7 @@
                     <h5 class="right">Created Date:</h5>
                 </div>
                 <div class="small-9 columns">
-                    <h5 class="left" th:text="${#dates.format(group.createdDate, 'yyyy-MM-dd HH:mm')}">2014-10-10</h5>
+                    <h5 class="left" th:text="${#dates.format(group.createdDate, 'yyyy-MM-dd HH:mm:ss')}">2014-10-10</h5>
                 </div>
                 <div class="small-3 columns">
                     <h5 class="right">Members:</h5>
@@ -63,14 +63,14 @@
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script src="../../static/js/app.js" th:src="@{/js/app.js}"></script>
 <script>
-//    $(function () {
+$(function () {
     $('#delete-group-ok').on('click', function(){
         $('#delete-group-form').submit();
     });
     $('#delete-group-cancel').on('click', function(){
         $('#close-delete-group').click();
     });
-//    });
+});
 </script>
 </body>
 </html>
