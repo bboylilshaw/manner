@@ -9,56 +9,59 @@
     <script src="../../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
 </head>
 <body>
-    <header th:replace="layout/header :: top-bar">Top-bar</header>
-    <div class="row">
-        <div class="large-4 columns">
-            <img class="th" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/300x300&amp;text=${group.name}|}"/>
+
+<header th:replace="layout/header :: top-bar">Top-bar</header>
+<div class="row">
+    <div class="large-4 columns">
+        <img class="th" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/300x300&amp;text=${group.name}|}"/>
+    </div>
+    <div class="large-8 columns">
+        <div class="row">
+            <div class="small-3 columns">
+                <h5 class="right">Name:</h5>
+            </div>
+            <div class="small-9 columns">
+                <h5 class="left" th:text="${group.name}">BMI</h5>
+            </div>
+            <div class="small-3 columns">
+                <h5 class="right">Owner:</h5>
+            </div>
+            <div class="small-9 columns">
+                <h5 class="left" th:text="${group.owner.username}">Jason</h5>
+            </div>
+            <div class="small-3 columns">
+                <h5 class="right">Created Date:</h5>
+            </div>
+            <div class="small-9 columns">
+                <h5 class="left" th:text="${#dates.format(group.createdDate, 'yyyy-MM-dd HH:mm:ss')}">2014-10-10</h5>
+            </div>
+            <div class="small-3 columns">
+                <h5 class="right">Members:</h5>
+            </div>
+            <div class="small-9 columns">
+                <h5 class="left" th:text="${group.users.size()}">8</h5>
+            </div>
         </div>
-        <div class="large-8 columns">
-            <div class="row">
-                <div class="small-3 columns">
-                    <h5 class="right">Name:</h5>
-                </div>
-                <div class="small-9 columns">
-                    <h5 class="left" th:text="${group.name}">BMI</h5>
-                </div>
-                <div class="small-3 columns">
-                    <h5 class="right">Owner:</h5>
-                </div>
-                <div class="small-9 columns">
-                    <h5 class="left" th:text="${group.owner.username}">Jason</h5>
-                </div>
-                <div class="small-3 columns">
-                    <h5 class="right">Created Date:</h5>
-                </div>
-                <div class="small-9 columns">
-                    <h5 class="left" th:text="${#dates.format(group.createdDate, 'yyyy-MM-dd HH:mm:ss')}">2014-10-10</h5>
-                </div>
-                <div class="small-3 columns">
-                    <h5 class="right">Members:</h5>
-                </div>
-                <div class="small-9 columns">
-                    <h5 class="left" th:text="${group.users.size()}">8</h5>
-                </div>
+        <div class="row">
+            <a class="button">Add Member</a>
+            <a class="button">Transfer Ownership</a>
+            <a id="delete-group-btn" class="button alert" data-reveal-id="delete-group">Delete</a>
+            <div id="delete-group" class="reveal-modal small" data-reveal="">
+                <h3>Are you sure?</h3>
+                <p class="lead">This action <strong>CANNOT</strong> be undone. This will permanently delete the group and items in this group.</p>
+                <a id="delete-group-ok" class="button">OK</a>
+                <a id="delete-group-cancel" class="secondary button">Cancel</a>
+                <a id="close-delete-group" class="close-reveal-modal">&#215;</a>
             </div>
-            <div class="row">
-                <a class="button">Add Member</a>
-                <a class="button">Transfer Ownership</a>
-                <a id="delete-group-btn" class="button alert" data-reveal-id="delete-group">Delete</a>
-                <div id="delete-group" class="reveal-modal small" data-reveal="">
-                    <h3>Are you sure?</h3>
-                    <p class="lead">This action <strong>CANNOT</strong> be undone. This will permanently delete the group and items in this group.</p>
-                    <a id="delete-group-ok" class="button">OK</a>
-                    <a id="delete-group-cancel" class="secondary button">Cancel</a>
-                    <a id="close-delete-group" class="close-reveal-modal">&#215;</a>
-                </div>
-                <form id="delete-group-form" th:action="@{'/group/' + ${groupId}}" method="post">
-                    <input type="hidden" name="_method" value="DELETE"/>
-                </form>
-            </div>
+            <form id="delete-group-form" th:action="@{'/group/' + ${groupId}}" method="post">
+                <input type="hidden" name="_method" value="DELETE"/>
+            </form>
         </div>
     </div>
-    <footer th:replace="layout/footer :: footer">Footer</footer>
+</div>
+<footer th:replace="layout/footer :: footer">Footer</footer>
+
+<!-- load js files after DOM loaded -->
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script src="../../static/js/app.js" th:src="@{/js/app.js}"></script>
@@ -72,5 +75,6 @@ $(function () {
     });
 });
 </script>
+
 </body>
 </html>
