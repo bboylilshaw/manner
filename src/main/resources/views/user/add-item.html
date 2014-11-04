@@ -27,7 +27,7 @@
                         <label for="item-owner">
                             Owner:
                             <select name="ownerId" id="item-owner">
-                                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}">Owner email</option>
+                                <option th:each="member : ${members}" th:value="${member.id}" th:text="${member.email}">owner's email</option>
                             </select>
                         </label>
                     </div>
@@ -78,17 +78,32 @@
                 </div>
                 <input type="submit" value="Create" class="button"/>
             </form>
+            <form id="attachment-form" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+                <div class="medium-6 columns">
+                    Attachment:
+                    <input type="file" name="attachment" id="item-attachment"/>
+                    <!--<input type="submit" value="Upload" class="button"/>-->
+                    <a id="attachment-form-btn" href="#" class="button">Upload</a>
+                </div>
+            </form>
         </div>
     </div>
     <footer th:replace="layout/footer :: footer">Footer</footer>
 <script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
 <script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
 <script src="../../static/js/vendor/foundation-datepicker.js" th:src="@{/js/vendor/foundation-datepicker.js}"></script>
-<script>
+<script th:inline="javascript">
+/*<![CDATA[*/
     $(document).foundation();
     $(function() {
         $('#item-due-date').fdatepicker();
+        $('#attachment-form-btn').on('click', function () {
+            console.log('Test');
+            $('#attachment-form').submit();
+        });
     });
+/*]]>*/
 </script>
+
 </body>
 </html>

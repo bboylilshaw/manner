@@ -1,5 +1,6 @@
 package org.jshaw.manner.web.controller;
 
+import org.jshaw.manner.common.Views;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.Item;
 import org.jshaw.manner.domain.User;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,6 +33,9 @@ public class ItemController {
     @Autowired
     private GroupService groupService;
 
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
+
     @ModelAttribute("groups")
     private List<Group> groups(@CurrentUser Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
@@ -45,7 +50,7 @@ public class ItemController {
         Page<Item> itemPage = itemService.listItemsInGroup(groupId, startPage, pageSize);
         modelMap.addAttribute("page", itemPage);
         modelMap.addAttribute("groupId", groupId);
-        return "user/list-items";
+        return Views.LIST_ITEMS_PAGE;
     }
 
     @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.GET)
@@ -54,7 +59,7 @@ public class ItemController {
         List<User> members = (List<User>) groupService.getGroup(groupId).getUsers();
         modelMap.addAttribute("groupId", groupId);
         modelMap.addAttribute("members", members);
-        return "user/add-item";
+        return Views.ADD_ITEM_PAGE;
     }
 
     @RequestMapping(value = "/group/{groupId}/item", method = RequestMethod.POST)
@@ -68,5 +73,27 @@ public class ItemController {
         itemService.addItem(groupId, item);
         return "redirect:/group/" + groupId + "/items";
     }
+
+    @RequestMapping(value = "/group/{groupId}/item/{itemId}", method = RequestMethod.GET)
+    public Object itemDetails(@PathVariable("groupId") Long groupId,
+                              @PathVariable("itemId") Long itemId,
+                              ModelMap modelMap) {
+        logger.info("get item details");
+        Item item = itemService.getItem(itemId);
+        modelMap.addAttribute("item", item);
+        return Views.ITEM_DETAILS_PAGE;
+    }
+
+//    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String doUploadAttachment(HttpServletRequest request,
+//                                     MultipartHttpServletRequest multipartHttpServletRequest) {
+//
+//        FileInputStream inputStream = multipartHttpServletRequest.getFile("attachment").getInputStream();
+//        gridFsTemplate.store()
+//
+//        logger.info("uploading an attachment");
+//        return "upload successfully!";
+//    }
 
 }
