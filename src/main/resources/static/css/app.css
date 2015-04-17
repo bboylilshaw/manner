@@ -1,18 +1,1 @@
-body {
-    color: #222222;
-    padding: 70px 50px 50px;
-    font-size: 14px;
-    font-family: Helvetica, Arial, sans-serif;
-}
-
-.footer {
-    background-color: #777777;
-}
-
-.fixed {
-    padding-bottom: 50px;
-}
-
-.navbar-btn li {
-    padding-right: 20px;
-}
+body { padding: 70px; }

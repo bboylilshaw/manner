@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .headers().disable()
             .authorizeRequests()
-                .antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/error", "/signup", "/api/**").permitAll() //FIXME: add authentication for restful web service api call
+                .antMatchers("/bower_components/**", "js/**", "/css/**", "/images/**", "/**/favicon.ico", "/error", "/signup", "/api/**").permitAll() //FIXME: add authentication for restful web service api call
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

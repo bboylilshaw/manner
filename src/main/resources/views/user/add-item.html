@@ -75,6 +75,15 @@
                             <input type="text" name="remarks" id="item-remarks" />
                         </label>
                     </div>
+                    <div class="medium-6 columns">
+                        <form th:action="@{/upload}">
+                            <label for="item-attachment">
+                                Attachment:
+                                <input type="file" name="attachment" id="item-attachment" />
+                            </label>
+                            <input type="submit" class="button"/>
+                        </form>
+                    </div>
                 </div>
                 <input type="submit" value="Create" class="button"/>
             </form>

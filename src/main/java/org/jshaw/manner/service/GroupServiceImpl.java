@@ -24,6 +24,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public Group addGroup(String groupName, User owner) {
+
+        Assert.hasText(groupName);
+        Assert.notNull(owner);
+
         Group group = new Group();
         group.setName(groupName);
         group.setOwner(owner);
@@ -47,6 +51,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public Group updateGroup(Long groupId, Group updatedGroup) {
+        Assert.notNull(updatedGroup);
         Group group = groupRepository.findOne(groupId);
         Assert.notNull(group, "group does not exist");
         BeanUtils.copyProperties(updatedGroup, group);

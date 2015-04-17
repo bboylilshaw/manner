@@ -1,59 +1,62 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{login}">Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
-    <link href="../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
-    <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
+    <link href="../static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link href="../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
     <header th:replace="layout/header :: top-bar"></header>
-    <div class="row">
-        <div class="medium-4 medium-offset-4 columns panel">
-            <h3>Please Login</h3>
-            <form th:action="@{/signin}" method="post" role="form">
-                <div th:if="${param.error}" data-alert="" class="alert-box alert">
-                    Invalid username or password.
-                    <a href="#" class="close">&times;</a>
-                </div>
-                <div th:if="${param.signout}" data-alert="" class="alert-box success">
-                    You have been signed out.
-                    <a href="#" class="close">&times;</a>
-                </div>
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <label for="username">
-                            <input type="text" name="username" id="username" placeholder="Username or Email" required="true"/>
-                        </label>
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Please Login</h3>
+            </div>
+            <div class="panel-body">
+                <form th:action="@{/signin}" method="post" role="form">
+                    <div th:if="${param.error}" class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        Invalid username and password.
                     </div>
-                </div>
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <label for="password">
-                            <input type="password" name="password" id="password" placeholder="Password" required="true"/>
-                        </label>
+                    <div th:if="${param.signout}" class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        You have been signed out.
                     </div>
-                </div>
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <input id="remember-me-checkbox" name="_spring_security_remember_me" type="checkbox"/><label for="remember-me-checkbox">Remember Me</label>
+                    <div class="form-group">
+                        <label for="username">Username or Email Address:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username or Email Address" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required"/>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label for="remember-me-checkbox">
+                            <input type="checkbox" id="remember-me-checkbox" name="_spring_security_remember_me" data-toggle="checkbox"/>Remember Me
+                        </label>
                         <a href="#" class="right">Forgot Password?</a>
                     </div>
-                </div>
-                <input type="submit" value="Sign In" class="button expand"/>
-            </form>
-            <div class="text-center">
+                    <input type="submit" value="Sign In" class="btn btn-primary btn-block"/>
+                </form>
+            </div>
+            <div class="panel-footer text-center">
                 <a href="#" th:href="@{/signup}">Don't have an account? Register</a>
             </div>
+            </div><!-- end panel-->
         </div>
-    </div><!-- end row -->
+    </div><!-- end container -->
     <footer th:replace="layout/footer :: footer">Footer</footer>
-<script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
-<script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script>
-    $(document).foundation();
-</script>
+
+    <script src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

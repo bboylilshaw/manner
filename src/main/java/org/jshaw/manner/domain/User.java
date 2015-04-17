@@ -21,7 +21,6 @@ import java.util.HashSet;
                 @Index(name = "username_index", columnList = "username", unique = true),
                 @Index(name = "email_index", columnList = "email", unique = true),
         }
-//        uniqueConstraints = @UniqueConstraint(name = "email_uni", columnNames = "email")
 )
 @Getter
 @Setter
@@ -33,10 +32,10 @@ public class User extends AbstractPersistable<Long> {
     //@Pattern(regexp = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
     private String username;
 
-    @NotNull
+    @NotEmpty
     private String firstName;
 
-    @NotNull
+    @NotEmpty
     private String lastName;
 
     @Email

@@ -4,6 +4,7 @@ import org.jshaw.manner.domain.User;
 import org.jshaw.manner.security.SpringSecurityAuditorAwareImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,10 +24,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
 
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
-@EnableJpaRepositories
+@SpringBootApplication
 @EnableJpaAuditing
 public class Application extends WebMvcConfigurerAdapter {
 
