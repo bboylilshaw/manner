@@ -35,7 +35,7 @@
                     <td><span class="label" th:text="${item.priority}"></span></td>
                     <td th:text="${item.status}">Status goes here</td>
                     <td class="text-center" th:text="${item.percentage + '&#37;'}">Percentage goes here</td>
-                    <td><a href="#">...</a></td>
+                    <td><a th:href="@{|/group/${groupId}/item/${item.id}|}">...</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -11,4 +11,8 @@ public final class Views {
     public static final String LIST_GROUPS_PAGE = "user/list-groups";
     public static final String GROUP_DETAILS_PAGE = "user/group-details";
 
+    public static final String ADD_ITEM_PAGE = "user/add-item";
+    public static final String LIST_ITEMS_PAGE = "user/list-items";
+    public static final String ITEM_DETAILS_PAGE = "user/item-details";
+
 }
