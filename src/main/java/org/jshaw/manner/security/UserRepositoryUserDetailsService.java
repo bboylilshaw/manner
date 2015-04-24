@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class UserRepositoryUserDetailsService implements UserDetailsService {
@@ -21,6 +22,7 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Assert.hasText(username);
         User user = userRepository.findByUsernameOrEmailAllIgnoreCase(username, username);
 //        if (username.contains("@")) {//user is using email to login
 //            user = userRepository.findByEmail(username);

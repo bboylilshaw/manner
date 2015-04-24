@@ -1,71 +1,50 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{signup}">Sign Up</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
-    <link href="../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
-    <script src="../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
+    <link href="../static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link href="../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
-    <header th:replace="layout/header :: top-bar"></header>
+    <header th:replace="layout/header :: topbar"></header>
     <!--<div th:text="${#authentication}"></div>-->
-    <div id="signup" class="row">
-        <div class="medium-6 medium-offset-3 columns panel">
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
             <h3>Please Sign up</h3>
-            <form th:action="@{/signup}" data-abide="" method="post" role="form">
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <label for="username"> Username:
-                            <input type="text" name="username" id="username" placeholder="Username" required="true"/>
-                        </label>
-                    </div>
+            <form th:action="@{/signup}" method="post" role="form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter username" required="required"/>
                 </div>
-                <div class="row">
-                    <div class="medium-6 columns">
-                        <label for="firstName"> First Name:
-                            <input type="text" name="firstName" id="firstName" placeholder="First Name" required="true"/>
-                        </label>
-                    </div>
-                    <div class="medium-6 columns">
-                        <label for="lastName"> Last Name:
-                            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required="true"/>
-                        </label>
-                    </div>
+                <div class="form-group">
+                    <label for="firstName">First name:</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required="required"/>
                 </div>
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <label for="email"> Email:
-                            <input type="email" name="email" id="email" placeholder="Email" required="true"/>
-                        </label>
-                        <small class="error">Invalid email address</small>
-                    </div>
+                <div class="form-group">
+                    <label for="lastName">Last name:</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required="required"/>
                 </div>
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <label for="password"> Password:
-                            <input type="password" name="password" id="password" placeholder="Password" required="true"/>
-                        </label>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email address" required="required"/>
                 </div>
-                <div class="row">
-                    <div class="medium-12 columns">
-                        <label for="confirmPassword"> Confirm Password:
-                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" data-equalto="password" required="true"/>
-                        </label>
-                        <small class="error">The password did not match</small>
-                    </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" required="required"/>
                 </div>
-                <input type="submit" value="Sign Up" class="button expand"/>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm password:</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required="required"/>
+                </div>
+                <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
             </form>
         </div>
-    </div><!-- end signup -->
+    </div><!-- end container -->
     <footer th:replace="layout/footer :: footer">Footer</footer>
-<script src="../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
-<script src="../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script>
-    $(document).foundation();
-</script>
+
+    <script src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+
 </body>
 </html>
