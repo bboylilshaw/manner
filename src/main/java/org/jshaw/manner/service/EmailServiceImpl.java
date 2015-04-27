@@ -47,6 +47,7 @@ public class EmailServiceImpl implements EmailService {
 
             mailSender.send(mimeMessage);
         } catch (MessagingException | UnsupportedEncodingException e) {
+            logger.error(e.getMessage());
             e.printStackTrace();
         }
 

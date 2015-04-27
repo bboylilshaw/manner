@@ -2,6 +2,7 @@ package org.jshaw.manner.web.controller;
 
 import org.jshaw.manner.common.Views;
 import org.jshaw.manner.domain.Group;
+import org.jshaw.manner.domain.SignUpForm;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.security.CurrentUser;
 import org.jshaw.manner.service.GroupService;
@@ -61,9 +62,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String doSignup(@ModelAttribute User user) throws Exception{
-        logger.info(user.toString());
-        userService.signUp(user);
+    public String doSignup(@ModelAttribute SignUpForm signUpForm) throws Exception{
+        logger.info(signUpForm.toString());
+        userService.signUp(signUpForm);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.isAuthenticated()) {

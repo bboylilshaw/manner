@@ -2,12 +2,14 @@ package org.jshaw.manner.service;
 
 import org.jshaw.manner.common.Role;
 import org.jshaw.manner.domain.Group;
+import org.jshaw.manner.domain.SignUpForm;
 import org.jshaw.manner.domain.User;
 import org.jshaw.manner.repository.GroupRepository;
 import org.jshaw.manner.repository.UserRepository;
 import org.jshaw.manner.security.UserRepositoryUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,7 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void signUp(User user) {
+    public void signUp(SignUpForm signUpForm) {
+        Assert.notNull(signUpForm);
+        User user = new User();
+        BeanUtils.copyProperties(signUpForm, user);
         String rawPassword = user.getPassword();
         user.setPassword(encoder.encode(rawPassword));
         user.setRole(Role.USER);
@@ -44,9 +49,7 @@ public class UserServiceImpl implements UserService {
         logger.info("save user:" + user.toString());
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-        auth.setAuthenticated(true);
         auth.setDetails(userDetails);
-
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 

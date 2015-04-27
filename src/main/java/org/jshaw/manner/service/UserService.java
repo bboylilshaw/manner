@@ -1,12 +1,13 @@
 package org.jshaw.manner.service;
 
+import org.jshaw.manner.domain.SignUpForm;
 import org.jshaw.manner.domain.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    void signUp(User user);
+    void signUp(SignUpForm signUpForm);
 
     User addUser(User user);
 
