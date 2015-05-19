@@ -24,15 +24,11 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Assert.hasText(username);
         User user = userRepository.findByUsernameOrEmailAllIgnoreCase(username, username);
-//        if (username.contains("@")) {//user is using email to login
-//            user = userRepository.findByEmail(username);
-//        } else {
-//            user = userRepository.findByUsername(username);
-//        }
         if(user == null) {
+            logger.error("Could not find user!");
             throw new UsernameNotFoundException("Could not find user!");
         }
-        logger.info("login user is " + user.toString());
+        logger.info("loaded user:" + user.toString());
         UserRepositoryUserDetails userDetails = new UserRepositoryUserDetails();
         BeanUtils.copyProperties(user, userDetails);
         userDetails.setId(user.getId());

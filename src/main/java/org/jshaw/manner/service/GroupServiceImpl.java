@@ -6,6 +6,7 @@ import org.jshaw.manner.repository.GroupRepository;
 import org.jshaw.manner.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -23,13 +24,13 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Group addGroup(String groupName, User owner) {
+    public Group addGroup(Group group, User owner) {
 
-        Assert.hasText(groupName);
+        Assert.notNull(group);
         Assert.notNull(owner);
 
-        Group group = new Group();
-        group.setName(groupName);
+        //Group group = new Group();
+
         group.setOwner(owner);
         group.getUsers().add(owner);
         group.setCreatedDate(new Date());

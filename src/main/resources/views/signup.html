@@ -12,32 +12,39 @@
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
             <h3>Please Sign up</h3>
-            <form th:action="@{/signup}" method="post" role="form">
+            <form action="#" th:action="@{/signup}" th:object="${signUpForm}" method="post" role="form">
+                <div th:if="${#fields.hasErrors('*')}" id="errMsg" class="alert alert-danger">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                    </ul>
+                </div>
+                <fieldset>
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required="required"/>
+                    <input type="text" th:value="${signUpForm.username}" class="form-control" id="username" name="username" placeholder="Enter username" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="firstName">First name:</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required="required"/>
+                    <input type="text" th:value="${signUpForm.firstName}" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="lastName">Last name:</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required="required"/>
+                    <input type="text" th:value="${signUpForm.lastName}" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" required="required"/>
+                    <input type="email" th:value="${signUpForm.email}" class="form-control" id="email" name="email" placeholder="Enter email address" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required="required"/>
+                    <input type="password" th:value="${signUpForm.password}" class="form-control" id="password" name="password" placeholder="Enter password" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm password:</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required="required"/>
+                    <input type="password" th:value="${signUpForm.confirmPassword}" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required="required"/>
                 </div>
                 <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
+                </fieldset>
             </form>
         </div>
     </div><!-- end container -->

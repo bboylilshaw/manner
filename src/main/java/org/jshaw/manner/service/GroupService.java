@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GroupService {
 
-    Group addGroup(String groupName, User owner);
+    Group addGroup(Group group, User owner);
 
     Group getGroup(Long groupId);
 

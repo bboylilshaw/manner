@@ -4,6 +4,8 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Size;
+
 /**
  * Created by Jason on 4/25/15.
  */
@@ -11,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Data
 public class SignUpForm {
     @NotEmpty
+    @Size(max = 50)
     private String username;
     @NotEmpty
     private String firstName;

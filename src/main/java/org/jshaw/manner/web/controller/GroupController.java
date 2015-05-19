@@ -1,6 +1,8 @@
 package org.jshaw.manner.web.controller;
 
+import org.hibernate.pretty.MessageHelper;
 import org.jshaw.manner.common.GlobalConstants;
+import org.jshaw.manner.common.MessageType;
 import org.jshaw.manner.common.Views;
 import org.jshaw.manner.domain.Group;
 import org.jshaw.manner.domain.User;
@@ -9,6 +11,7 @@ import org.jshaw.manner.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class GroupController {
@@ -28,6 +32,9 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value = "/group", method = RequestMethod.GET)
     public String createGroup() {
         return Views.ADD_GROUP_PAGE;
@@ -36,12 +43,17 @@ public class GroupController {
     @RequestMapping(value = "/group", method = RequestMethod.POST)
     public String doCreateGroup(@CurrentUser Authentication authentication,
                                 HttpServletRequest request,
-                                RedirectAttributes redirectAttributes) {
+                                RedirectAttributes redirectAttributes,
+                                Locale locale) {
+        logger.info(locale.toString());
         String groupName = request.getParameter("groupName");
         User currentUser = (User) authentication.getPrincipal();
-        groupService.addGroup(groupName, currentUser);
-        redirectAttributes.addFlashAttribute(GlobalConstants.MESSAGE_TYPE, "info");
-        redirectAttributes.addFlashAttribute(GlobalConstants.MESSAGE, "Added group successfully!");
+        Group group = new Group();
+        group.setName(groupName);
+        group.setOwner(currentUser);
+        groupService.addGroup(group, currentUser);
+        redirectAttributes.addFlashAttribute(GlobalConstants.MESSAGE_TYPE, MessageType.INFO)
+                .addFlashAttribute(GlobalConstants.MESSAGE, messageSource.getMessage("add.group.success",null,locale));
         return Views.REDIRECT_TO_HOME_PAGE;
     }
 

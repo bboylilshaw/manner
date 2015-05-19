@@ -17,16 +17,10 @@ public class UserRepositoryUserDetails extends User implements UserDetails {
         List<GrantedAuthority> authList = new ArrayList<>();
         if (super.getRole().equals(Role.SUPER_ADMIN)) {
             authList = AuthorityUtils.createAuthorityList("ROLE_SUPER_ADMIN", "ROLE_SUPER_ADMIN", "ROLE_USER");
-//            authList.add(new SimpleGrantedAuthority("ROLE_SUPER_ADMIN"));
-//            authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         } else if (super.getRole().equals(Role.ADMIN)) {
             authList = AuthorityUtils.createAuthorityList("ROLE_SUPER_ADMIN", "ROLE_USER");
-//            authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         } else if (super.getRole().equals(Role.USER)) {
             authList = AuthorityUtils.createAuthorityList("ROLE_USER");
-//            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return authList;
     }

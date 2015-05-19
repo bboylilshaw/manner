@@ -8,12 +8,8 @@
 </head>
 <body>
 <div id="side-bar" th:fragment="sidebar">
-    <ul class="side-nav">
-        <li class="heading">Groups</li>
-        <li><a href="#" data-reveal-id="add-group-modal">Add Group</a></li>
-        <li th:if="${groups.size()>0}" th:each="group : ${groups}" th:class="${group.id==groupId}? 'active' : ''">
-            <a href="#" th:text="${group.name}" th:href="@{'/group/' + ${group.id} + '/items'}">Group Name</a>
-        </li>
+    <ul class="nav nav-pills nav-stacked">
+        <li>Groups</li>
     </ul>
     <div id="add-group-modal" class="reveal-modal small" data-reveal="" th:include="user/add-group :: add-group-modal"></div>
 </div>
