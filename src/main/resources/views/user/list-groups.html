@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{app.name}">Team Manner</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../static/css/foundation.min.css" rel="stylesheet" media="screen" th:href="@{/css/foundation.min.css}"/>
-    <link href="../../static/css/app.css" rel="stylesheet" media="screen" th:href="@{/css/app.css}"/>
-    <script src="../../static/js/vendor/modernizr.js" th:src="@{/js/vendor/modernizr.js}"></script>
+    <link href="../../static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link href="../../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
-    <header th:replace="layout/header :: top-bar">Top-bar</header>
-    <div class="row">
-        <div th:each="group : ${groups}" class="large-3 medium-4 small-6 columns left">
+    <header th:replace="layout/header :: topbar">Top-bar</header>
+
+    <div class="container">
+        <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
+        <div id="content" class="col-md-10" th:each="group : ${groups}">
             <a href="#" th:href="@{|/group/${group.id}|}">
-                <img class="th" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/300x300&amp;text=${group.name}|}"/>
+                <img class="thumbnail" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/200x200&amp;text=${group.name}|}"/>
             </a>
             <div class="panel">
                 <h3 class="text-center" th:text="${group.name}"></h3>
             </div>
         </div>
     </div>
+
     <footer th:replace="layout/footer :: footer">Footer</footer>
-<script src="../../static/js/vendor/jquery.js" th:src="@{/js/vendor/jquery.js}"></script>
-<script src="../../static/js/foundation.min.js" th:src="@{/js/foundation.min.js}"></script>
-<script src="../../static/js/app.js" th:src="@{/js/app.js}"></script>
+
+    <script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

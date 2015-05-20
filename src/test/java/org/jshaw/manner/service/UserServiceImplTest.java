@@ -1,17 +1,22 @@
 package org.jshaw.manner.service;
 
 import org.jshaw.manner.AbstractIntegrationTest;
+import org.jshaw.manner.common.Role;
+import org.jshaw.manner.domain.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public class UserServiceImplTest extends AbstractIntegrationTest {
 
     @Autowired
     UserService userService;
 
     @Test
-    public void testAdd() throws Exception {
-//        userService.add(User.of("jason", "Yao", "Xiao", "jason@jason.com", "123", Role.ADMIN, new HashSet<>(), new ArrayList<>(), new ArrayList<>()));
+    public void testAddUser() throws Exception {
+        User user = User.of("username", "first", "last", "abc@abc.com", "123", Role.ADMIN, null);
+        userService.addUser(user);
     }
 
     @Test

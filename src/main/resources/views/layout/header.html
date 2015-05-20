@@ -42,8 +42,8 @@
                 </ul>
 
                 <ul sec:authorize="hasRole('ROLE_ANONYMOUS')" class="nav navbar-nav navbar-right">
-                    <li><button th:href="@{/signin}" class="btn btn-primary navbar-btn">Sign In</button></li>
-                    <li><button th:href="@{/signup}" class="btn btn-success navbar-btn">Sign Up</button></li>
+                    <li><a href="#" th:href="@{/signin}">Sign in</a></li>
+                    <li><a href="#" th:href="@{/signup}">Sign up</a></li>
                 </ul>
 
                 <form id="signout-form" th:action="@{/signout}" method="post" role="form"></form>

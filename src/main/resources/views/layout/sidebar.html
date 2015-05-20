@@ -7,11 +7,12 @@
     <link href="../../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
-<div id="side-bar" th:fragment="sidebar">
-    <ul class="nav nav-pills nav-stacked">
-        <li>Groups</li>
+<div id="sidebar" th:fragment="sidebar">
+    <ul class="nav nav-sidebar">
+        <li><a href="#" th:href="@{/groups}">All Groups</a></li>
+        <li><a href="#" th:href="@{/group}">Add Group</a></li>
+        <li><a href="#">Transfer Group</a></li>
     </ul>
-    <div id="add-group-modal" class="reveal-modal small" data-reveal="" th:include="user/add-group :: add-group-modal"></div>
 </div>
 
 <script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>

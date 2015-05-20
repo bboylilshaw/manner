@@ -7,20 +7,28 @@
     <link href="../../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
-    <a href="#" class="button" data-reveal-id="add-group-modal">Add Group</a>
-    <div th:fragment="add-group-modal" id="add-group-modal" class="reveal-modal small" data-reveal="">
-        <h3>group name:</h3>
-        <form th:action="@{/group}" method="post">
-            <label for="groupName">
-                <input type="text" name="groupName" id="groupName" required="required"/>
-            </label>
-            <input type="submit" value="Create" class="button small"/>
-        </form>
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
+<header th:replace="layout/header :: topbar">Top-bar</header>
 
-    <script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-    <script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<div class="container">
+    <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
+    <div id="content" class="col-md-10">
+        <div id="group-form" class="col-md-6">
+            <form action="#" th:action="@{/group}" method="post" role="form">
+                <div class="form-group">
+                    <label for="groupName">Group name:</label>
+                    <input type="text" class="form-control" id="groupName" name="groupName" placeholder="Enter group name" required="required"/>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+                <input type="reset" value="Reset" class="btn btn-default"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/footer :: footer">Footer</footer>
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

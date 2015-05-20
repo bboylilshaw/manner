@@ -7,19 +7,21 @@
     <link href="../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
-    <header th:replace="layout/header :: topbar">Top-bar</header>
-    <div class="container">
-        <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
-        <div id="content" class="col-md-8">
-            <div th:if="${message!=null}" class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <div th:text="${message}">message placeholder</div>
-            </div>
-            <!--<div th:text="${#authentication}"></div>-->
-            <div>home page content goes here</div>
+<header th:replace="layout/header :: topbar">Top-bar</header>
+
+<div class="container">
+    <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
+    <div id="content" class="col-md-8">
+        <div th:if="${message!=null}" class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <div th:text="${message}">message placeholder</div>
         </div>
+        <!--<div th:text="${#authentication}"></div>-->
+        <div>home page content goes here</div>
     </div>
-    <footer th:replace="layout/footer :: footer">Footer</footer>
+</div>
+
+<footer th:replace="layout/footer :: footer">Footer</footer>
 
 <script src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
