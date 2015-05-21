@@ -7,24 +7,27 @@
     <link href="../../static/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
-    <header th:replace="layout/header :: topbar">Top-bar</header>
+<header th:replace="layout/header :: topbar">Top-bar</header>
 
-    <div class="container">
-        <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
-        <div id="content" class="col-md-10" th:each="group : ${groups}">
-            <a href="#" th:href="@{|/group/${group.id}|}">
-                <img class="thumbnail" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/200x200&amp;text=${group.name}|}"/>
-            </a>
-            <div class="panel">
-                <h3 class="text-center" th:text="${group.name}"></h3>
+<div class="container">
+    <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
+    <div id="content" class="col-md-10">
+        <div class="row">
+            <div class="col-xs-6 col-sm-3" th:each="group : ${groups}">
+                <a href="#" th:href="@{|/group/${group.id}|}">
+                    <img class="thumbnail" src="http://placehold.it/300x300&amp;text=Demo" th:src="@{|http://placehold.it/200x200&amp;text=${group.name}|}"/>
+                </a>
+                <h4 class="text-center" th:text="${group.name}">group name</h4>
+                <div class="text-center text-muted" th:text="${#sets.size(group.users)}">number of members</div>
             </div>
         </div>
     </div>
+</div>
 
-    <footer th:replace="layout/footer :: footer">Footer</footer>
+<footer th:replace="layout/footer :: footer">Footer</footer>
 
-    <script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-    <script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

@@ -73,10 +73,10 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/{groupId}", method = RequestMethod.DELETE)
-    public String deleteGroup(@PathVariable("groupId") Long groupId, RedirectAttributes redirectAttributes) {
+    public String deleteGroup(@PathVariable("groupId") Long groupId, RedirectAttributes redirectAttributes, Locale locale) {
         groupService.deleteGroup(groupId);
-        redirectAttributes.addFlashAttribute(GlobalConstants.MESSAGE_TYPE, "info");
-        redirectAttributes.addFlashAttribute(GlobalConstants.MESSAGE, "Deleted group successfully!");
+        redirectAttributes.addFlashAttribute(GlobalConstants.MESSAGE_TYPE, "info")
+                .addFlashAttribute(GlobalConstants.MESSAGE, messageSource.getMessage("delete.group.success", null, locale));
         return Views.REDIRECT_TO_HOME_PAGE;
     }
 
