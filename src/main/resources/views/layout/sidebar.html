@@ -11,8 +11,14 @@
     <ul class="nav nav-sidebar">
         <li><a href="#" th:href="@{/groups}">All Groups</a></li>
         <li><a href="#" th:href="@{/group}">Add Group</a></li>
-        <li><a href="#" th:href="@{/items}">All Items</a></li>
-        <li><a href="#" th:href="@{/item}">Add Item</a></li>
+    </ul>
+</div>
+
+<div id="sidebar-for-group" th:fragment="sidebar-for-group(groupId)">
+    <ul class="nav nav-sidebar">
+        <li><a href="#" th:href="@{/groups}">All Groups</a></li>
+        <li><a href="#" th:href="@{|/group/${groupId}/items|}">All Items</a></li>
+        <li><a href="#" th:href="@{|/group/${groupId}/item|}">Add Item</a></li>
     </ul>
 </div>
 

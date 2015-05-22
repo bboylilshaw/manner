@@ -10,7 +10,7 @@
 <header th:replace="layout/header :: topbar">Top-bar</header>
 
 <div class="container">
-    <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar"></div>
+    <div id="side-bar" class="col-md-2" th:include="layout/sidebar :: sidebar-for-group(${group.id})"></div>
     <div id="content" class="col-md-10">
         <div class="row">
             <div class="col-md-6">

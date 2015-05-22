@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.View;
 import java.util.List;
 
 @Controller
@@ -70,7 +71,7 @@ public class ItemController {
         String ownerId = request.getParameter("ownerId");
         User owner = userService.getUser(Long.parseLong(ownerId));
         item.setOwner(owner);
-        itemService.addItem(groupId, item);
+        itemService.createItem(groupId, item);
         return "redirect:/group/" + groupId + "/items";
     }
 
@@ -82,6 +83,16 @@ public class ItemController {
         Item item = itemService.getItem(itemId);
         modelMap.addAttribute("item", item);
         return Views.ITEM_DETAILS_PAGE;
+    }
+
+    @RequestMapping(value = "/items", method = RequestMethod.GET)
+    public String allItems() {
+        return Views.LIST_ITEMS_PAGE;
+    }
+
+    @RequestMapping(value = "/item", method = RequestMethod.GET)
+    public String addItem() {
+        return Views.ADD_ITEM_PAGE;
     }
 
 //    @RequestMapping(value = "/upload", method = RequestMethod.POST)
