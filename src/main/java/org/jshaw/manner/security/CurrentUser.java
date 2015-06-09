@@ -1,10 +1,10 @@
 package org.jshaw.manner.security;
 
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.PARAMETER)
+@Target({ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @AuthenticationPrincipal
